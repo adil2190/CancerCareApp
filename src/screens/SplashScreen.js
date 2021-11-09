@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#000',
-    fontFamily: 'Poppins-Bold',
+    fontFamily: 'Poppins-Black',
   },
 });
 export default SplashScreen;
