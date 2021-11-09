@@ -7,7 +7,7 @@ const Stack = createStackNavigator();
 const RootNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="SplashScreen"
+      initialRouteName="LoginScreen"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="SplashScreen" component={SplashScreen} />
       <Stack.Screen name="LoginScreen" component={LoginScreen} />

@@ -20,8 +20,10 @@ function SplashScreen(props) {
   return (
     <View style={styles.container}>
       <Image source={logo} style={styles.image} />
-      <Text style={styles.text}>Welcome to</Text>
-      <Text style={styles.text}>Cancer Care App</Text>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>Welcome to</Text>
+        <Text style={styles.text}>Cancer Care App</Text>
+      </View>
     </View>
   );
 }
@@ -34,14 +36,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    marginLeft: '10%',
-    height: hp('35%'),
-    width: hp('35%'),
+    // marginLeft: '10%',
+    height: hp('30%'),
+    width: hp('30%'),
     resizeMode: 'contain',
   },
+  textContainer: {
+    marginTop: hp('15%'),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   text: {
+    // backgroundColor: '#999',
     color: '#000',
-    fontFamily: 'Poppins-Black',
+    fontFamily: 'Poppins-Bold',
+    fontSize: hp('3%'),
+    marginVertical: -6,
   },
 });
 export default SplashScreen;
