@@ -8,6 +8,7 @@ import {
 import InputField from '../components/InputField';
 import {username, password, logo} from '../assets/assets';
 import {colors} from '../constants/colors';
+import MyButton from '../components/MyButton';
 
 function LoginScreen(props) {
   return (
@@ -29,6 +30,7 @@ function LoginScreen(props) {
           placeholder="Password"
           placeholderTextColor={colors.DARK}
         />
+        <MyButton buttonStyle={{marginVertical: hp('2.8%')}} label="Log in" />
       </View>
     </ScrollView>
   );
