@@ -11,6 +11,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {colors} from '../constants/colors';
+import {fonts} from '../constants/fonts';
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
   txt: {
     color: colors.WHITE,
     fontSize: hp('2.6%'),
-    fontFamily: 'Poppins-Bold',
+    fontFamily: fonts.poppinsSemiBold,
   },
 });
 export default MyButton;
