@@ -9,16 +9,12 @@ import {WIDTH} from '../constants/sizes';
 import {fonts} from '../constants/fonts';
 import {colors} from '../constants/colors';
 
-function AppointmentCard({name, day, date, time}) {
+function NotesCard({note, date}) {
   return (
     <View style={styles.container}>
-      <View style={styles.left}>
-        <Text style={styles.name}>{name}</Text>
-      </View>
-      <View style={styles.right}>
-        <Text style={styles.day}> {day} </Text>
+      <View style={styles.main}>
+        <Text style={styles.name}> {note} </Text>
         <Text style={styles.date}> {date} </Text>
-        <Text style={styles.time}> {time} </Text>
       </View>
     </View>
   );
@@ -30,35 +26,24 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     elevation: 4,
-    flexDirection: 'row',
     marginVertical: 10,
   },
-  left: {
+  main: {
     flex: 1,
     paddingVertical: 10,
     paddingHorizontal: 10,
   },
-  right: {flex: 1, paddingVertical: 10, alignItems: 'center'},
   name: {
     fontFamily: fonts.poppinsBold,
     fontSize: hp('2.6%'),
     color: colors.DARK,
   },
-  day: {
-    fontFamily: fonts.poppinsBold,
-    fontSize: hp('2.6%'),
-    color: colors.MAIN,
-  },
+
   date: {
     fontFamily: fonts.poppinsMedium,
     fontSize: hp('2.3%'),
     color: colors.DARK,
   },
-  time: {
-    fontFamily: fonts.poppinsRegular,
-    fontSize: hp('1.9%'),
-    color: colors.DARK,
-  },
 });
 
-export default AppointmentCard;
+export default NotesCard;
