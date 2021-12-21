@@ -11,10 +11,13 @@ import {
   myNotes,
 } from '../assets/assets';
 
-function Dashboard(props) {
+function Dashboard({navigation}) {
   return (
     <View style={styles.container}>
-      <DashboardHeader label="Dashboard" />
+      <DashboardHeader
+        label="Dashboard"
+        onPressed={() => navigation.openDrawer()}
+      />
       <ScrollView>
         <DashboardCard img={myAppointments} label="Appointments" />
         <DashboardCard img={myDiet} label="Diet" />

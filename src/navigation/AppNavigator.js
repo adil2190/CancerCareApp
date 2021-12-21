@@ -6,18 +6,21 @@ import MyAppointments from '../screens/MyAppointments';
 import Notes from '../screens/Notes';
 import Dashboard from '../screens/Dashboard';
 import DrawerNavigator from './DrawerNavigator';
-import AppNavigator from './AppNavigator';
 
 const Stack = createStackNavigator();
-const RootNavigator = () => {
+const AppNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="SplashScreen"
+      initialRouteName="DrawerNavigator"
       screenOptions={{headerShown: false}}>
+      <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
       <Stack.Screen name="SplashScreen" component={SplashScreen} />
-      <Stack.Screen name="AppNavigator" component={AppNavigator} />
+      <Stack.Screen name="Dashboard" component={Dashboard} />
+      <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      <Stack.Screen name="MyAppointments" component={MyAppointments} />
+      <Stack.Screen name="Notes" component={Notes} />
     </Stack.Navigator>
   );
 };
 
-export default RootNavigator;
+export default AppNavigator;

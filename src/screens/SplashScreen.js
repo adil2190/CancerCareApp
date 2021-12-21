@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -16,7 +16,12 @@ import {
 import {logo} from '../assets/assets';
 import {MAIN} from '../constants/colors';
 
-function SplashScreen(props) {
+function SplashScreen({navigation}) {
+  useEffect(() => {
+    setTimeout(() => {
+      navigation.replace('AppNavigator');
+    }, 1000);
+  }, []);
   return (
     <View style={styles.container}>
       <Image source={logo} style={styles.image} />

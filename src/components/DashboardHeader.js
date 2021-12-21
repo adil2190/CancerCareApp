@@ -7,10 +7,10 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-function DashboardHeader({label}) {
+function DashboardHeader({label, onPressed}) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPressed}>
         <Image source={hamburger} style={styles.img} />
       </TouchableOpacity>
       <Text style={styles.txt}> {label} </Text>
