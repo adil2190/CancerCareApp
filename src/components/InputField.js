@@ -7,9 +7,12 @@ import {
 import {username, password} from '../assets/assets';
 import {colors, DARK, WHITE} from '../constants/colors';
 
-function InputField({icon, ...otherProps}) {
+function InputField({icon, fullWidth, ...otherProps}) {
   return (
-    <View style={styles.container}>
+    <View
+      style={
+        fullWidth ? [styles.container, {width: '100%'}] : styles.container
+      }>
       <Image source={icon} style={styles.image} />
       <TextInput style={styles.textInput} {...otherProps} />
     </View>

@@ -31,7 +31,7 @@ function DashboardCard({img, label}) {
 
 const styles = StyleSheet.create({
   container: {
-    width: wp('100%'),
+    width: '100%',
     backgroundColor: '#fff',
     elevation: 4,
     flexDirection: 'row',
@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
   },
   img: {
     resizeMode: 'contain',
-    height: 130,
-    width: 150,
+    height: 110,
+    width: 130,
     marginHorizontal: 15,
   },
   left: {
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   txt: {
     fontFamily: fonts.poppinsBold,
-    fontSize: hp('2.9%'),
+    fontSize: wp('5%'),
     color: colors.MAIN,
   },
 });

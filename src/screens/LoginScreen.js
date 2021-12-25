@@ -23,13 +23,13 @@ function LoginScreen(props) {
         <InputField
           icon={username}
           placeholder="Username"
-          placeholderTextColor={colors.DARK}
+          placeholderTextColor={colors.LIGHTGRAY}
         />
         <InputField
           icon={password}
           secureTextEntry
           placeholder="Password"
-          placeholderTextColor={colors.DARK}
+          placeholderTextColor={colors.LIGHTGRAY}
         />
         <MyButton buttonStyle={{marginVertical: hp('2.8%')}} label="Log in" />
       </View>
