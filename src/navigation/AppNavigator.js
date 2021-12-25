@@ -10,12 +10,13 @@ import AccountCreated from '../screens/AccountCreated';
 import SignUp from '../screens/SignUp';
 import AddNote from '../screens/AddNote';
 import NoteDetails from '../screens/NoteDetails';
+import AddNewAppointments from '../screens/AddNewAppointments';
 
 const Stack = createStackNavigator();
 const AppNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="NoteDetails"
+      initialRouteName="AddNewAppointments"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
       <Stack.Screen name="SplashScreen" component={SplashScreen} />
@@ -27,6 +28,7 @@ const AppNavigator = () => {
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="AddNote" component={AddNote} />
       <Stack.Screen name="NoteDetails" component={NoteDetails} />
+      <Stack.Screen name="AddNewAppointments" component={AddNewAppointments} />
     </Stack.Navigator>
   );
 };
