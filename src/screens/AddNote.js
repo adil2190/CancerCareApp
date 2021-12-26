@@ -6,7 +6,7 @@ import {fonts} from '../constants/fonts';
 function AddNote({navigation}) {
   return (
     <View style={styles.container}>
-      <ActionHeader label={'Save'} />
+      <ActionHeader onPress={() => navigation.goBack()} label={'Save'} />
       <TextInput
         placeholder="Write Something..."
         placeholderTextColor={colors.LIGHTGRAY}

@@ -8,10 +8,10 @@ import {
 } from 'react-native-responsive-screen';
 import {fonts} from '../constants/fonts';
 
-function ActionHeader({label}) {
+function ActionHeader({label, onPress}) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPress}>
         <Image source={back} style={styles.img} />
       </TouchableOpacity>
       <TouchableOpacity>

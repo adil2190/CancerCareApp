@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -10,8 +17,9 @@ import {username, password, logo} from '../assets/assets';
 import {colors} from '../constants/colors';
 import MyButton from '../components/MyButton';
 import BackHeader from '../components/BackHeader';
+import {fonts} from '../constants/fonts';
 
-function LoginScreen(props) {
+function LoginScreen({navigation}) {
   return (
     <ScrollView>
       <View style={{flex: 1, alignItems: 'center'}}>
@@ -31,7 +39,17 @@ function LoginScreen(props) {
           placeholder="Password"
           placeholderTextColor={colors.LIGHTGRAY}
         />
-        <MyButton buttonStyle={{marginVertical: hp('2.8%')}} label="Log in" />
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.normalTxt}>Don't have an account?</Text>
+          <TouchableOpacity>
+            <Text style={styles.boldTxt}> Create Account</Text>
+          </TouchableOpacity>
+        </View>
+        <MyButton
+          buttonStyle={{marginVertical: hp('2.8%')}}
+          label="Log in"
+          onPress={() => navigation.replace('DrawerNavigator')}
+        />
       </View>
     </ScrollView>
   );
@@ -54,6 +72,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Bold',
     fontSize: hp('5%'),
   },
+  normalTxt: {
+    color: '#666',
+    fontFamily: fonts.poppinsRegular,
+  },
+  boldTxt: {color: '#666', fontFamily: fonts.poppinsSemiBold},
   subText: {
     marginTop: -13,
     color: colors.DARK,

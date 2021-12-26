@@ -7,10 +7,10 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-function BackHeader({label}) {
+function BackHeader({label, isBack, onPress}) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPress}>
         <Image source={back} style={styles.img} />
       </TouchableOpacity>
       <Text style={styles.txt}> {label} </Text>

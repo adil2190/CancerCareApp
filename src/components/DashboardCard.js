@@ -16,9 +16,9 @@ import {colors} from '../constants/colors';
 import {myAppointments} from '../assets/assets';
 import {fonts} from '../constants/fonts';
 
-function DashboardCard({img, label}) {
+function DashboardCard({img, label, onPress}) {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity onPress={onPress} style={styles.container}>
       <View style={styles.left}>
         <Image source={img} style={styles.img} />
       </View>

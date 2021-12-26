@@ -12,11 +12,23 @@ import AppointmentCard from '../components/AppointmentCard';
 import {colors} from '../constants/colors';
 import MyButton from '../components/MyButton';
 import {fonts} from '../constants/fonts';
+import DashboardHeader from '../components/DashboardHeader';
 
-function MyAppointments(props) {
+function MyAppointments({navigation, route}) {
   return (
     <View style={styles.container}>
-      <BackHeader label="My Appointments" />
+      {route.params?.isBack ? (
+        <BackHeader
+          onPress={() => navigation.goBack()}
+          label="My Appointments"
+        />
+      ) : (
+        <DashboardHeader
+          label="My Appointments"
+          onPressed={() => navigation.openDrawer()}
+        />
+      )}
+
       <ScrollView
         contentContainerStyle={styles.cardContainer}
         showsVerticalScrollIndicator={false}>
@@ -38,7 +50,11 @@ function MyAppointments(props) {
           date="10th, July"
           time="4:00 PM - 6:00 PM"
         />
-        <MyButton label="Add new appointment" buttonStyle={{marginTop: 20}} />
+        <MyButton
+          onPress={() => navigation.push('AddNewAppointments')}
+          label="Add new appointment"
+          buttonStyle={{marginTop: 20}}
+        />
       </ScrollView>
     </View>
   );

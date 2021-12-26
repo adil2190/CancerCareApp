@@ -19,11 +19,19 @@ function Dashboard({navigation}) {
         onPressed={() => navigation.openDrawer()}
       />
       <ScrollView>
-        <DashboardCard img={myAppointments} label="Appointments" />
+        <DashboardCard
+          onPress={() => navigation.push('MyAppointments', {isBack: true})}
+          img={myAppointments}
+          label="Appointments"
+        />
         <DashboardCard img={myDiet} label="Diet" />
         <DashboardCard img={myExercise} label="Exercise" />
         <DashboardCard img={myMedicine} label="Medications" />
-        <DashboardCard img={myNotes} label="Notes" />
+        <DashboardCard
+          onPress={() => navigation.push('Notes', {isBack: true})}
+          img={myNotes}
+          label="Notes"
+        />
       </ScrollView>
     </View>
   );

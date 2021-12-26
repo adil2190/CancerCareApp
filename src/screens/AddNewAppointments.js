@@ -19,7 +19,7 @@ import InputFieldMin from '../components/InputFieldMin';
 function AddNewAppointments({navigation}) {
   return (
     <View style={styles.container}>
-      <ActionHeader label={'Done'} />
+      <ActionHeader onPress={() => navigation.goBack()} label={'Done'} />
       <Text style={styles.txt}>New Appointments</Text>
       <InputFieldMin
         placeholder="Patient Id"
