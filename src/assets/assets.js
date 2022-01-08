@@ -8,3 +8,5 @@ export const myDiet = require('./My-Diet.png');
 export const myExercise = require('./My-Exercise.png');
 export const myMedicine = require('./My-Medicine.png');
 export const myNotes = require('./My-Notes.png');
+export const close = require('./Path412.png');
+export const drawerMedicine = require('./Icon-my-medicine.png')

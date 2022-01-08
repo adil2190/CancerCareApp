@@ -22,6 +22,7 @@ function SplashScreen({navigation}) {
       navigation.replace('AppNavigator');
     }, 1000);
   }, []);
+
   return (
     <View style={styles.container}>
       <Image source={logo} style={styles.image} />
