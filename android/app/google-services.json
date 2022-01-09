@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "395821011678",
+    "project_id": "cancecare-62ae4",
+    "storage_bucket": "cancecare-62ae4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:395821011678:android:14d0ffd534e57e99c9e84f",
+        "android_client_info": {
+          "package_name": "com.cancercareapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "395821011678-t9mrn9736kf4nk442jldth6ouf611mll.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cancercareapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "395821011678-aolopdfjqgdjasa26gjhfplqcb29u88t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQmM5kfNanfIKFRp5jwiuw-B0Em5YWCRQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "395821011678-aolopdfjqgdjasa26gjhfplqcb29u88t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
