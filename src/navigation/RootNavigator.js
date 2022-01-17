@@ -1,12 +1,9 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import SplashScreen from '../screens/SplashScreen';
-import LoginScreen from '../screens/LoginScreen';
-import MyAppointments from '../screens/MyAppointments';
-import Notes from '../screens/Notes';
-import Dashboard from '../screens/Dashboard';
-import DrawerNavigator from './DrawerNavigator';
 import AppNavigator from './AppNavigator';
+import LoginAs from '../screens/LoginAs';
+import DoctorNavigator from './DoctorNavigator';
 
 const Stack = createStackNavigator();
 const RootNavigator = () => {
@@ -16,6 +13,8 @@ const RootNavigator = () => {
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="SplashScreen" component={SplashScreen} />
       <Stack.Screen name="AppNavigator" component={AppNavigator} />
+      <Stack.Screen name="LoginAs" component={LoginAs} />
+      <Stack.Screen name="DoctorNavigator" component={DoctorNavigator} />
     </Stack.Navigator>
   );
 };

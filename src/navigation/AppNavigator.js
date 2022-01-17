@@ -11,6 +11,7 @@ import SignUp from '../screens/SignUp';
 import AddNote from '../screens/AddNote';
 import NoteDetails from '../screens/NoteDetails';
 import AddNewAppointments from '../screens/AddNewAppointments';
+import MyMedicines from '../screens/MyMedicines';
 
 const Stack = createStackNavigator();
 const AppNavigator = () => {
@@ -23,6 +24,7 @@ const AppNavigator = () => {
       <Stack.Screen name="Dashboard" component={Dashboard} />
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
       <Stack.Screen name="MyAppointments" component={MyAppointments} />
+      <Stack.Screen name="MyMedicines" component={MyMedicines} />
       <Stack.Screen name="Notes" component={Notes} />
       <Stack.Screen name="AccountCreated" component={AccountCreated} />
       <Stack.Screen name="SignUp" component={SignUp} />

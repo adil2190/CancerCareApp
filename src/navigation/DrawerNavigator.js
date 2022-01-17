@@ -15,9 +15,18 @@ import {
 } from '@react-navigation/drawer';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
-import {drawerMedicine, close} from '../assets/assets';
+import {
+  drawerMedicine,
+  close,
+  drawerDiet,
+  drawerMedical,
+  drawerNotes,
+  drawerAppointment,
+  logout,
+} from '../assets/assets';
 import Dashboard from '../screens/Dashboard';
 import MyAppointments from '../screens/MyAppointments';
+import MyMedicines from '../screens/MyMedicines';
 import Notes from '../screens/Notes';
 import {fonts} from '../constants/fonts';
 import {colors} from '../constants/colors';
@@ -33,25 +42,35 @@ function DrawerNavigator(props) {
       <Drawer.Screen name="Dashboard" component={Dashboard} />
       <Drawer.Screen name="MyAppointments" component={MyAppointments} />
       <Drawer.Screen name="Notes" component={Notes} />
+      <Drawer.Screen name="MyMedicines" component={MyMedicines} />
     </Drawer.Navigator>
   );
 }
 
-const DrawerContent = props => {
+const DrawerContent = ({navigation}, props) => {
   return (
     <ScrollView style={styles.drawer}>
       <DrawerContentScrollView {...props}>
         <View style={styles.upperContainer}>
           <View style={styles.intro}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.closeDrawer()}>
               <Image
                 style={[styles.img, {position: 'absolute', top: 10, right: 10}]}
                 resizeMode="contain"
                 source={close}
               />
             </TouchableOpacity>
+
+            <View style={styles.introtxtContainer}>
+              <View>
+                <Text style={styles.introTitle}>Safeena Ahmed</Text>
+                <Text style={styles.introSubtitle}>Luxemberg</Text>
+              </View>
+            </View>
           </View>
-          <TouchableOpacity style={styles.itemParentContainer}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('MyMedicines')}
+            style={styles.itemParentContainer}>
             <View style={styles.itemContainer}>
               <Image
                 style={styles.img}
@@ -61,14 +80,62 @@ const DrawerContent = props => {
               <Text style={styles.txt}>My Medicines</Text>
             </View>
           </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('MyAppointments')}
+            style={styles.itemParentContainer}>
+            <View style={styles.itemContainer}>
+              <Image
+                style={styles.img}
+                resizeMode="contain"
+                source={drawerAppointment}
+              />
+              <Text style={styles.txt}>My Appointments</Text>
+            </View>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.itemParentContainer}>
             <View style={styles.itemContainer}>
               <Image
                 style={styles.img}
                 resizeMode="contain"
-                source={drawerMedicine}
+                source={drawerMedical}
               />
-              <Text style={styles.txt}>My Medicines</Text>
+              <Text style={styles.txt}>Medical Records</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.itemParentContainer}>
+            <View style={styles.itemContainer}>
+              <Image
+                style={styles.img}
+                resizeMode="contain"
+                source={drawerDiet}
+              />
+              <Text style={styles.txt}>Diet</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.itemParentContainer}
+            onPress={() => navigation.navigate('Notes')}>
+            <View style={styles.itemContainer}>
+              <Image
+                style={styles.img}
+                resizeMode="contain"
+                source={drawerNotes}
+              />
+              <Text style={styles.txt}>Notes</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            height: hp('25%'),
+            justifyContent: 'flex-end',
+          }}>
+          <TouchableOpacity
+            style={[styles.itemParentContainer]}
+            onPress={() => navigation.replace('LoginScreen')}>
+            <View style={styles.itemContainer}>
+              <Image style={styles.img} resizeMode="contain" source={logout} />
+              <Text style={styles.txt}>Logout</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -88,6 +155,22 @@ const styles = StyleSheet.create({
   intro: {
     backgroundColor: '#ECF1FA',
     height: hp('25%'),
+  },
+  introtxtContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+  },
+  introTitle: {
+    color: colors.MAIN,
+    fontFamily: fonts.poppinsBold,
+    fontSize: 18,
+  },
+  introSubtitle: {
+    color: colors.MAIN,
+    fontFamily: fonts.poppinsRegular,
+    fontSize: 15,
+    marginTop: -7,
   },
   itemParentContainer: {
     marginLeft: 30,

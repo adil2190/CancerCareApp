@@ -27,7 +27,7 @@ const MyButton = ({
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={[buttonStyle, styles.btn]}
+      style={[styles.btn, buttonStyle]}
       {...props}>
       {loading ? (
         <ActivityIndicator color={buttonLoaderColor} />

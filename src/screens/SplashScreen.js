@@ -19,7 +19,7 @@ import {MAIN} from '../constants/colors';
 function SplashScreen({navigation}) {
   useEffect(() => {
     setTimeout(() => {
-      navigation.replace('AppNavigator');
+      navigation.replace('LoginAs');
     }, 1000);
   }, []);
 

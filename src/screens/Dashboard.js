@@ -12,6 +12,7 @@ import {
 } from '../assets/assets';
 
 function Dashboard({navigation}) {
+  console.warn = () => {};
   return (
     <View style={styles.container}>
       <DashboardHeader
@@ -26,7 +27,11 @@ function Dashboard({navigation}) {
         />
         <DashboardCard img={myDiet} label="Diet" />
         <DashboardCard img={myExercise} label="Exercise" />
-        <DashboardCard img={myMedicine} label="Medications" />
+        <DashboardCard
+          onPress={() => navigation.push('MyMedicines', {isBack: true})}
+          img={myMedicine}
+          label="Medications"
+        />
         <DashboardCard
           onPress={() => navigation.push('Notes', {isBack: true})}
           img={myNotes}
