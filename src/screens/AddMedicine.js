@@ -17,45 +17,45 @@ import {colors} from '../constants/colors';
 import {fonts} from '../constants/fonts';
 import InputFieldMin from '../components/InputFieldMin';
 
-function AddNewAppointments({navigation}) {
+function AddMedicine({navigation}) {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <ActionHeader onPress={() => navigation.goBack()} label={'Done'} />
-        <Text style={styles.txt}>New Appointments</Text>
+        <ActionHeader onPress={() => navigation.goBack()} label={'Assign'} />
+        <Text style={styles.txt}>Add Medicine</Text>
         <InputFieldMin
-          placeholder="Patient Id"
+          placeholder="Medicine Name"
           placeholderTextColor={colors.LIGHTGRAY}
           fullWidth={true}
         />
         <InputFieldMin
-          placeholder="Title"
-          placeholderTextColor={colors.LIGHTGRAY}
-          fullWidth={true}
-        />
-        <InputFieldMin
-          placeholder="Date"
+          placeholder="Purpose"
           placeholderTextColor={colors.LIGHTGRAY}
           fullWidth={true}
         />
         <View style={{flexDirection: 'row'}}>
           <View style={styles.halfWidth}>
             <InputFieldMin
-              placeholder="Start Time"
+              placeholder="Dose"
               placeholderTextColor={colors.LIGHTGRAY}
               fullWidth={true}
             />
           </View>
           <View style={styles.halfWidth}>
             <InputFieldMin
-              placeholder="End Time"
+              placeholder="Units"
               placeholderTextColor={colors.LIGHTGRAY}
               fullWidth={true}
             />
           </View>
         </View>
         <InputFieldMin
-          placeholder="Alert"
+          placeholder="Frequency"
+          placeholderTextColor={colors.LIGHTGRAY}
+          fullWidth={true}
+        />
+        <InputFieldMin
+          placeholder="Days"
           placeholderTextColor={colors.LIGHTGRAY}
           fullWidth={true}
         />
@@ -90,4 +90,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddNewAppointments;
+export default AddMedicine;

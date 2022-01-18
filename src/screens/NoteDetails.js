@@ -6,7 +6,7 @@ import {fonts} from '../constants/fonts';
 function NoteDetails({navigation}) {
   return (
     <View style={styles.container}>
-      <ActionHeader label={'Delete'} />
+      <ActionHeader onPress={() => navigation.goBack()} label={'Delete'} />
       <Text style={styles.input}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero sunt ut
         deserunt odit nesciunt cum, labore saepe architecto possimus impedit

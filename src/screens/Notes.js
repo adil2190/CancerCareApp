@@ -21,10 +21,26 @@ function Notes({navigation, route}) {
       <ScrollView
         contentContainerStyle={styles.cardContainer}
         showsVerticalScrollIndicator={false}>
-        <NotesCard note="Id Password" date="10th, July" />
-        <NotesCard note="Irritation" date="10th, July" />
-        <NotesCard note="Points for next appointment" date="10th, July" />
-        <NotesCard note="Id password" date="10th, July" />
+        <NotesCard
+          onPress={() => navigation.push('NoteDetails')}
+          note="Id Password"
+          date="10th, July"
+        />
+        <NotesCard
+          onPress={() => navigation.push('NoteDetails')}
+          note="Irritation"
+          date="10th, July"
+        />
+        <NotesCard
+          onPress={() => navigation.push('NoteDetails')}
+          note="Points for next appointment"
+          date="10th, July"
+        />
+        <NotesCard
+          onPress={() => navigation.push('NoteDetails')}
+          note="Id password"
+          date="10th, July"
+        />
         <MyButton
           onPress={() => navigation.push('AddNote')}
           label="Add new note"

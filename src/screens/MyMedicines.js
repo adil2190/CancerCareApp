@@ -51,7 +51,7 @@ function MyMedicines({navigation, route}) {
         />
 
         <MyButton
-          onPress={() => navigation.push('AddNewAppointments')}
+          onPress={() => navigation.push('AddMedicine')}
           label="Add new Medicine"
           buttonStyle={{marginTop: 20}}
         />
