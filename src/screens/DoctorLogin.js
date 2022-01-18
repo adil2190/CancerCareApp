@@ -48,7 +48,7 @@ function DoctorLogin({navigation}) {
         <MyButton
           buttonStyle={{marginVertical: hp('2.8%')}}
           label="Log in"
-          onPress={() => navigation.replace('DoctorDashboard')}
+          onPress={() => navigation.replace('DoctorDrawer')}
         />
       </View>
     </ScrollView>

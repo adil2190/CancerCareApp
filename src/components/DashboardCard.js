@@ -16,11 +16,11 @@ import {colors} from '../constants/colors';
 import {myAppointments} from '../assets/assets';
 import {fonts} from '../constants/fonts';
 
-function DashboardCard({img, label, onPress}) {
+function DashboardCard({img, label, onPress, imgStyles}) {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <View style={styles.left}>
-        <Image source={img} style={styles.img} />
+        <Image source={img} style={[styles.img, imgStyles]} />
       </View>
       <View style={styles.right}>
         <Text style={styles.txt}>{label}</Text>
@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingLeft: 10,
+    width: '50%',
   },
   txt: {
     fontFamily: fonts.poppinsBold,

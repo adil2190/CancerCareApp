@@ -30,18 +30,21 @@ import MyMedicines from '../screens/MyMedicines';
 import Notes from '../screens/Notes';
 import {fonts} from '../constants/fonts';
 import {colors} from '../constants/colors';
+import DoctorDashboard from '../screens/DoctorDashboard';
+import DoctorAppointment from '../screens/DoctorAppointments';
+import CancerDetection from '../screens/CancerDetection';
 
-function DrawerNavigator(props) {
+function DoctorDrawer(props) {
   const Drawer = createDrawerNavigator();
 
   return (
     <Drawer.Navigator
-      initialRouteName="Dashboard"
+      initialRouteName="DoctorDashboard"
       screenOptions={{headerShown: false}}
       drawerContent={props => <DrawerContent {...props} />}>
-      <Drawer.Screen name="Dashboard" component={Dashboard} />
-      <Drawer.Screen name="MyAppointments" component={MyAppointments} />
-      <Drawer.Screen name="Notes" component={Notes} />
+      <Drawer.Screen name="DoctorDashboard" component={DoctorDashboard} />
+      <Drawer.Screen name="DoctorAppointment" component={DoctorAppointment} />
+      <Drawer.Screen name="CancerDetection" component={CancerDetection} />
       <Drawer.Screen name="MyMedicines" component={MyMedicines} />
     </Drawer.Navigator>
   );
@@ -63,8 +66,8 @@ const DrawerContent = ({navigation}, props) => {
 
             <View style={styles.introtxtContainer}>
               <View>
-                <Text style={styles.introTitle}>Safeena Ahmed</Text>
-                <Text style={styles.introSubtitle}>Luxemberg</Text>
+                <Text style={styles.introTitle}>Dr. Sameer</Text>
+                <Text style={styles.introSubtitle}>General Physician</Text>
               </View>
             </View>
           </View>
@@ -77,11 +80,11 @@ const DrawerContent = ({navigation}, props) => {
                 resizeMode="contain"
                 source={drawerMedicine}
               />
-              <Text style={styles.txt}>My Medicines</Text>
+              <Text style={styles.txt}>Medicines</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('MyAppointments')}
+            onPress={() => navigation.navigate('DoctorAppointment')}
             style={styles.itemParentContainer}>
             <View style={styles.itemContainer}>
               <Image
@@ -89,17 +92,20 @@ const DrawerContent = ({navigation}, props) => {
                 resizeMode="contain"
                 source={drawerAppointment}
               />
-              <Text style={styles.txt}>My Appointments</Text>
+              <Text style={styles.txt}>Appointments</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.itemParentContainer}>
+
+          <TouchableOpacity
+            style={styles.itemParentContainer}
+            onPress={() => navigation.navigate('CancerDetection')}>
             <View style={styles.itemContainer}>
               <Image
                 style={styles.img}
                 resizeMode="contain"
-                source={drawerMedical}
+                source={drawerNotes}
               />
-              <Text style={styles.txt}>Medical Records</Text>
+              <Text style={styles.txt}>AI Cancer Detection</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.itemParentContainer}>
@@ -110,18 +116,6 @@ const DrawerContent = ({navigation}, props) => {
                 source={drawerDiet}
               />
               <Text style={styles.txt}>Diet</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.itemParentContainer}
-            onPress={() => navigation.navigate('Notes')}>
-            <View style={styles.itemContainer}>
-              <Image
-                style={styles.img}
-                resizeMode="contain"
-                source={drawerNotes}
-              />
-              <Text style={styles.txt}>Notes</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -191,4 +185,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DrawerNavigator;
+export default DoctorDrawer;
