@@ -1,5 +1,12 @@
 import React from 'react';
-import {Text, View, StyleSheet, ScrollView} from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import {colors} from '../constants/colors';
 import DashboardHeader from '../components/DashboardHeader';
 import DashboardCard from '../components/DashboardCard';
@@ -9,12 +16,16 @@ import {
   myExercise,
   myMedicine,
   myNotes,
+  chatbot,
 } from '../assets/assets';
 
 function Dashboard({navigation}) {
   console.warn = () => {};
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={styles.chatbotStyle}>
+        <Image source={chatbot} style={styles.chatbotImg} />
+      </TouchableOpacity>
       <DashboardHeader
         label="Dashboard"
         onPressed={() => navigation.openDrawer()}
@@ -46,6 +57,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.BACKGROUND,
+  },
+  chatbotStyle: {position: 'absolute', zIndex: 10, bottom: 10, right: 10},
+  chatbotImg: {
+    resizeMode: 'contain',
+    height: 60,
+    width: 60,
   },
 });
 

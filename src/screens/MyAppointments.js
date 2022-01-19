@@ -15,6 +15,13 @@ import {fonts} from '../constants/fonts';
 import DashboardHeader from '../components/DashboardHeader';
 
 function MyAppointments({navigation, route}) {
+  const appointmentsData = [
+    {label: 'Title', value: 'Test Title', id: 1},
+    {label: 'Date', value: 'Test Date', id: 2},
+    {label: 'Timing', value: 'Test Timing', id: 3},
+    {label: 'Alert', value: 'Test Alert', id: 4},
+    {label: 'Notes', value: 'Test Notes', id: 5},
+  ];
   return (
     <View style={styles.container}>
       {route.params?.isBack ? (
@@ -37,18 +44,33 @@ function MyAppointments({navigation, route}) {
           day="MONDAY"
           date="10th, July"
           time="4:00 PM - 6:00 PM"
+          onPress={() =>
+            navigation.push('AppointmentDetails', {
+              data: appointmentsData,
+            })
+          }
         />
         <AppointmentCard
           name="Dr. Sufyan"
           day="MONDAY"
           date="10th, July"
           time="4:00 PM - 6:00 PM"
+          onPress={() =>
+            navigation.push('AppointmentDetails', {
+              data: appointmentsData,
+            })
+          }
         />
         <AppointmentCard
           name="Dr. Sufyan"
           day="MONDAY"
           date="10th, July"
           time="4:00 PM - 6:00 PM"
+          onPress={() =>
+            navigation.push('AppointmentDetails', {
+              data: appointmentsData,
+            })
+          }
         />
         <MyButton
           onPress={() => navigation.push('AddNewAppointments')}

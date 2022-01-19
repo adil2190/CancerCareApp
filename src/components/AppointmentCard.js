@@ -1,5 +1,11 @@
 import React from 'react';
-import {View, Text, Dimensions, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  Dimensions,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -9,9 +15,9 @@ import {WIDTH} from '../constants/sizes';
 import {fonts} from '../constants/fonts';
 import {colors} from '../constants/colors';
 
-function AppointmentCard({name, day, date, time}) {
+function AppointmentCard({name, day, date, time, ...otherProps}) {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity {...otherProps} style={styles.container}>
       <View style={styles.left}>
         <Text style={styles.name}>{name}</Text>
       </View>
@@ -20,7 +26,7 @@ function AppointmentCard({name, day, date, time}) {
         <Text style={styles.date}> {date} </Text>
         <Text style={styles.time}> {time} </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

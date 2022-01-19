@@ -18,3 +18,5 @@ export const logout = require('./logout.png');
 export const doctor = require('./doctor.png');
 export const patient = require('./patient.png');
 export const cancerdetection = require('./cancerdetection.png');
+export const deleteIcon = require('./delete.png');
+export const chatbot = require('./chatbot.png');
