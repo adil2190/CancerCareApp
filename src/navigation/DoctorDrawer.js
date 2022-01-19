@@ -72,7 +72,7 @@ const DrawerContent = ({navigation}, props) => {
             </View>
           </View>
           <TouchableOpacity
-            onPress={() => navigation.navigate('MyMedicines')}
+            onPress={() => navigation.navigate('AssignedMedicines')}
             style={styles.itemParentContainer}>
             <View style={styles.itemContainer}>
               <Image

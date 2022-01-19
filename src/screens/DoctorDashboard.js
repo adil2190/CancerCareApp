@@ -25,6 +25,7 @@ function DoctorDashboard({navigation}) {
           // onPress={() => navigation.push('MyMedicines', {isBack: true})}
           img={myMedicine}
           label="Medications"
+          onPress={() => navigation.push('AssignedMedicines', {isBack: true})}
         />
         <DashboardCard
           onPress={() => navigation.push('DoctorAppointment', {isBack: true})}
