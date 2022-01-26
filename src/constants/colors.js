@@ -6,4 +6,5 @@ export const colors = {
   DARK: '#333',
   LIGHTGRAY: '#999',
   BACKGROUND: '#EFF8FF',
+  ERROR: '#CC0202',
 };

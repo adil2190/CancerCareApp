@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useEffect} from 'react';
 import {
   View,
@@ -14,15 +15,38 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {logo} from '../assets/assets';
+import {collectionNames} from '../constants/collections';
 import {MAIN} from '../constants/colors';
+import {getSingleDoc} from '../services/firestoreService';
 
 function SplashScreen({navigation}) {
   useEffect(() => {
-    setTimeout(() => {
-      navigation.replace('LoginAs');
-    }, 1000);
+    getData();
+    // setTimeout(() => {
+    //   navigation.replace('LoginAs');
+    // }, 1000);
   }, []);
 
+  const getData = async () => {
+    try {
+      const userId = await AsyncStorage.getItem('userId');
+      console.log(userId);
+      if (userId) {
+        const doctor = await getSingleDoc(collectionNames.doctors, userId);
+        const patient = await getSingleDoc(collectionNames.patients, userId);
+        console.log('doctor --->', doctor);
+        if (doctor) {
+          navigation.replace('DoctorNavigator');
+        } else if (patient) {
+          navigation.replace('AppNavigator');
+        } else {
+          navigation.replace('LoginAs');
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <View style={styles.container}>
       <Image source={logo} style={styles.image} />

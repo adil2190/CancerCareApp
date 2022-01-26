@@ -39,12 +39,7 @@ function LoginScreen({navigation}) {
           placeholder="Password"
           placeholderTextColor={colors.LIGHTGRAY}
         />
-        <View style={{flexDirection: 'row'}}>
-          <Text style={styles.normalTxt}>Don't have an account?</Text>
-          <TouchableOpacity>
-            <Text style={styles.boldTxt}> Create Account</Text>
-          </TouchableOpacity>
-        </View>
+
         <MyButton
           buttonStyle={{marginVertical: hp('2.8%')}}
           label="Log in"

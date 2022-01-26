@@ -18,8 +18,40 @@ import {colors} from '../constants/colors';
 import MyButton from '../components/MyButton';
 import BackHeader from '../components/BackHeader';
 import {fonts} from '../constants/fonts';
+import {useState} from 'react';
+import {getSingleDoc, signInUser} from '../services/firestoreService';
+import {collectionNames} from '../constants/collections';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function DoctorLogin({navigation}) {
+  const [email, setEmail] = useState('');
+  const [Password, setPassword] = useState('');
+  const [errors, setErrors] = useState('');
+
+  const onSubmit = async () => {
+    if (email && Password) {
+      try {
+        const user = await signInUser(email, Password);
+        // console.log(user.message.user);
+        const doctor = await getSingleDoc(
+          collectionNames.doctors,
+          user.message.user.uid,
+        );
+        console.log(doctor.message);
+        if (doctor) {
+          console.log('in doctor', doctor.message.userId);
+          setErrors('');
+          await AsyncStorage.setItem('userId', doctor.message.userId);
+        } else {
+          setErrors('User is not registered as doctor');
+        }
+      } catch (err) {
+        setErrors(err.message.message);
+      }
+    } else {
+      setErrors('Please fill all the required fields.');
+    }
+  };
   return (
     <ScrollView>
       <View style={{flex: 1, alignItems: 'center'}}>
@@ -29,27 +61,29 @@ function DoctorLogin({navigation}) {
           <Text style={styles.subText}>Sign in to continue</Text>
         </View>
         <InputField
+          value={email}
+          onChangeText={val => setEmail(val)}
           icon={username}
-          placeholder="Username"
+          placeholder="Email"
           placeholderTextColor={colors.LIGHTGRAY}
         />
         <InputField
           icon={password}
+          onChangeText={val => setPassword(val)}
+          value={Password}
           secureTextEntry
           placeholder="Password"
           placeholderTextColor={colors.LIGHTGRAY}
         />
-        <View style={{flexDirection: 'row'}}>
-          <Text style={styles.normalTxt}>Don't have an account?</Text>
-          <TouchableOpacity>
-            <Text style={styles.boldTxt}> Create Account</Text>
-          </TouchableOpacity>
-        </View>
+
         <MyButton
           buttonStyle={{marginVertical: hp('2.8%')}}
           label="Log in"
-          onPress={() => navigation.replace('DoctorDrawer')}
+          // onPress={() => navigation.replace('DoctorDrawer')}
+          onPress={onSubmit}
         />
+
+        {errors ? <Text style={styles.errTxt}> {errors} </Text> : null}
       </View>
     </ScrollView>
   );
@@ -82,6 +116,9 @@ const styles = StyleSheet.create({
     color: colors.DARK,
     fontSize: hp('3%'),
     fontFamily: 'Poppins-Medium',
+  },
+  errTxt: {
+    color: colors.ERROR,
   },
 });
 export default DoctorLogin;
