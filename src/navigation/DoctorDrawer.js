@@ -14,6 +14,7 @@ import {
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import auth from '@react-native-firebase/auth';
 
 import {
   drawerMedicine,
@@ -33,6 +34,7 @@ import {colors} from '../constants/colors';
 import DoctorDashboard from '../screens/DoctorDashboard';
 import DoctorAppointment from '../screens/DoctorAppointments';
 import CancerDetection from '../screens/CancerDetection';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function DoctorDrawer(props) {
   const Drawer = createDrawerNavigator();
@@ -51,6 +53,15 @@ function DoctorDrawer(props) {
 }
 
 const DrawerContent = ({navigation}, props) => {
+  const onLogout = async () => {
+    try {
+      await auth().signOut();
+      await AsyncStorage.removeItem('userId');
+      navigation.replace('LoginAs');
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <ScrollView style={styles.drawer}>
       <DrawerContentScrollView {...props}>
@@ -126,7 +137,7 @@ const DrawerContent = ({navigation}, props) => {
           }}>
           <TouchableOpacity
             style={[styles.itemParentContainer]}
-            onPress={() => navigation.replace('LoginAs')}>
+            onPress={onLogout}>
             <View style={styles.itemContainer}>
               <Image style={styles.img} resizeMode="contain" source={logout} />
               <Text style={styles.txt}>Logout</Text>

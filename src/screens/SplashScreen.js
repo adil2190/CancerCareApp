@@ -16,7 +16,6 @@ import {
 } from 'react-native-responsive-screen';
 import {logo} from '../assets/assets';
 import {collectionNames} from '../constants/collections';
-import {MAIN} from '../constants/colors';
 import {getSingleDoc} from '../services/firestoreService';
 
 function SplashScreen({navigation}) {
@@ -42,6 +41,8 @@ function SplashScreen({navigation}) {
         } else {
           navigation.replace('LoginAs');
         }
+      } else {
+        navigation.replace('LoginAs');
       }
     } catch (err) {
       console.log(err);

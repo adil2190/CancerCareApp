@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -18,8 +18,44 @@ import {colors} from '../constants/colors';
 import MyButton from '../components/MyButton';
 import BackHeader from '../components/BackHeader';
 import {fonts} from '../constants/fonts';
+import {getSingleDoc, signInUser} from '../services/firestoreService';
+import {collectionNames} from '../constants/collections';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function LoginScreen({navigation}) {
+  const [email, setEmail] = useState('');
+  const [Password, setPassword] = useState('');
+  const [errors, setErrors] = useState('');
+  const [loader, setLoader] = useState(false);
+
+  const onSubmit = async () => {
+    if (email && Password) {
+      setLoader(true);
+      try {
+        const user = await signInUser(email, Password);
+        console.log(user.message.user);
+        const patient = await getSingleDoc(
+          collectionNames.patients,
+          user.message.user.uid,
+        );
+        if (patient.message) {
+          console.log('in patient', patient.message.userId);
+          setErrors('');
+          await AsyncStorage.setItem('userId', patient.message.userId);
+          navigation.replace('AppNavigator');
+        } else {
+          setErrors('User is not registered as patient');
+        }
+      } catch (err) {
+        setErrors(err.message.message);
+      } finally {
+        setLoader(false);
+      }
+    } else {
+      setErrors('Please fill all the required fields.');
+    }
+  };
+
   return (
     <ScrollView>
       <View style={{flex: 1, alignItems: 'center'}}>
@@ -29,11 +65,15 @@ function LoginScreen({navigation}) {
           <Text style={styles.subText}>Sign in to continue</Text>
         </View>
         <InputField
+          value={email}
+          onChangeText={val => setEmail(val)}
           icon={username}
           placeholder="Username"
           placeholderTextColor={colors.LIGHTGRAY}
         />
         <InputField
+          value={Password}
+          onChangeText={val => setPassword(val)}
           icon={password}
           secureTextEntry
           placeholder="Password"
@@ -43,8 +83,10 @@ function LoginScreen({navigation}) {
         <MyButton
           buttonStyle={{marginVertical: hp('2.8%')}}
           label="Log in"
-          onPress={() => navigation.replace('DrawerNavigator')}
+          loading={loader}
+          onPress={onSubmit}
         />
+        {errors ? <Text style={styles.errTxt}> {errors} </Text> : null}
       </View>
     </ScrollView>
   );
@@ -77,6 +119,9 @@ const styles = StyleSheet.create({
     color: colors.DARK,
     fontSize: hp('3%'),
     fontFamily: 'Poppins-Medium',
+  },
+  errTxt: {
+    color: colors.ERROR,
   },
 });
 export default LoginScreen;

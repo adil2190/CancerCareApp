@@ -13,7 +13,7 @@ const Doctor = createStackNavigator();
 function DoctorNavigator(props) {
   return (
     <Doctor.Navigator
-      initialRouteName="DoctorLogin"
+      initialRouteName="DoctorDrawer"
       screenOptions={{headerShown: false}}>
       <Doctor.Screen name="DoctorLogin" component={DoctorLogin} />
       <Doctor.Screen name="DoctorDashboard" component={DoctorDashboard} />

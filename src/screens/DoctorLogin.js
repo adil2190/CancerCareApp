@@ -27,9 +27,10 @@ function DoctorLogin({navigation}) {
   const [email, setEmail] = useState('');
   const [Password, setPassword] = useState('');
   const [errors, setErrors] = useState('');
-
+  const [loader, setLoader] = useState(false);
   const onSubmit = async () => {
     if (email && Password) {
+      setLoader(true);
       try {
         const user = await signInUser(email, Password);
         // console.log(user.message.user);
@@ -37,21 +38,24 @@ function DoctorLogin({navigation}) {
           collectionNames.doctors,
           user.message.user.uid,
         );
-        console.log(doctor.message);
-        if (doctor) {
+        if (doctor.message) {
           console.log('in doctor', doctor.message.userId);
           setErrors('');
           await AsyncStorage.setItem('userId', doctor.message.userId);
+          navigation.replace('DoctorNavigator');
         } else {
           setErrors('User is not registered as doctor');
         }
       } catch (err) {
         setErrors(err.message.message);
+      } finally {
+        setLoader(false);
       }
     } else {
       setErrors('Please fill all the required fields.');
     }
   };
+
   return (
     <ScrollView>
       <View style={{flex: 1, alignItems: 'center'}}>
@@ -79,7 +83,7 @@ function DoctorLogin({navigation}) {
         <MyButton
           buttonStyle={{marginVertical: hp('2.8%')}}
           label="Log in"
-          // onPress={() => navigation.replace('DoctorDrawer')}
+          loading={loader}
           onPress={onSubmit}
         />
 

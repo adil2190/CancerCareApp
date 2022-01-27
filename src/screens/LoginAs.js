@@ -15,7 +15,7 @@ function LoginAs({navigation}) {
           <MyButton
             label={'Login as Doctor'}
             buttonStyle={{marginTop: 10, paddingVertical: 8}}
-            onPress={() => navigation.navigate('DoctorNavigator')}
+            onPress={() => navigation.navigate('DoctorLogin')}
           />
         </View>
         <View style={styles.imgContainer}>
@@ -23,7 +23,7 @@ function LoginAs({navigation}) {
           <MyButton
             label={'Login as Patient'}
             buttonStyle={{marginTop: 10, paddingVertical: 8}}
-            onPress={() => navigation.navigate('AppNavigator')}
+            onPress={() => navigation.navigate('PatientLogin')}
           />
         </View>
       </View>

@@ -27,6 +27,7 @@ const MyButton = ({
   return (
     <TouchableOpacity
       onPress={onPress}
+      disabled={loading}
       style={[styles.btn, buttonStyle]}
       {...props}>
       {loading ? (

@@ -19,7 +19,7 @@ const Stack = createStackNavigator();
 const AppNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="LoginScreen"
+      initialRouteName="DrawerNavigator"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
       <Stack.Screen name="SplashScreen" component={SplashScreen} />
