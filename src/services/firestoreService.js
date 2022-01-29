@@ -50,3 +50,25 @@ export const addInSubcollection = async (
     }
   });
 };
+
+export const getSubCollection = async (
+  collectionName,
+  docId,
+  childCollectionName,
+) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await firestore()
+        .collection(collectionName)
+        .doc(docId)
+        .collection(childCollectionName)
+        .get();
+      return resolve({
+        result: 'success',
+        message: response.docs.map(item => item.data()),
+      });
+    } catch (err) {
+      return reject({result: 'failed', message: err});
+    }
+  });
+};

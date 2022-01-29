@@ -62,7 +62,6 @@ const DrawerContent = ({navigation}, props) => {
     try {
       const userId = await AsyncStorage.getItem('userId');
       const patient = await getSingleDoc(collectionNames.patients, userId);
-      console.log('in patient drawer', patient.message);
       setSelfData(patient.message);
     } catch (err) {
       console.log(err);
