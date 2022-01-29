@@ -115,6 +115,7 @@ function AddMedicine({navigation}) {
         <View style={{flexDirection: 'row'}}>
           <View style={styles.halfWidth}>
             <InputFieldMin
+              keyboardType="number-pad"
               value={data.dose}
               onChangeText={val => setData({...data, dose: val})}
               placeholder="Dose"

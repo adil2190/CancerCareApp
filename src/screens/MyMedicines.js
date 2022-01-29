@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ScrollView,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 
 import BackHeader from '../components/BackHeader';
@@ -57,24 +58,27 @@ function MyMedicines({navigation, route}) {
           onPressed={() => navigation.openDrawer()}
         />
       )}
+      {loader ? (
+        <ActivityIndicator size={'large'} color={colors.MAIN} />
+      ) : (
+        <ScrollView
+          contentContainerStyle={styles.cardContainer}
+          showsVerticalScrollIndicator={false}>
+          {data.map(item => (
+            <MedicineCard
+              name={item.medicineName}
+              totalDuration={`${item.days} Days`}
+              duration={`${item.dose} ${item.units}, ${item.frequency}`}
+            />
+          ))}
 
-      <ScrollView
-        contentContainerStyle={styles.cardContainer}
-        showsVerticalScrollIndicator={false}>
-        {data.map(item => (
-          <MedicineCard
-            name={item.medicineName}
-            totalDuration={`${item.days} Days`}
-            duration={`${item.dose} ${item.units}, ${item.frequency}`}
+          <MyButton
+            onPress={() => navigation.push('AddMedicine')}
+            label="Add new Medicine"
+            buttonStyle={{marginTop: 20}}
           />
-        ))}
-
-        <MyButton
-          onPress={() => navigation.push('AddMedicine')}
-          label="Add new Medicine"
-          buttonStyle={{marginTop: 20}}
-        />
-      </ScrollView>
+        </ScrollView>
+      )}
     </View>
   );
 }
