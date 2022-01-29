@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useMemo, useRef} from 'react';
 import {
   Text,
   View,
@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {colors} from '../constants/colors';
 import DashboardHeader from '../components/DashboardHeader';
 import DashboardCard from '../components/DashboardCard';
@@ -21,11 +22,13 @@ import {
 
 function Dashboard({navigation}) {
   console.warn = () => {};
+
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.chatbotStyle}>
         <Image source={chatbot} style={styles.chatbotImg} />
       </TouchableOpacity>
+
       <DashboardHeader
         label="Dashboard"
         onPressed={() => navigation.openDrawer()}

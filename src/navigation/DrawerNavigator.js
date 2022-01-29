@@ -14,6 +14,7 @@ import {
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import auth from '@react-native-firebase/auth';
 
 import {
   drawerMedicine,
@@ -30,7 +31,11 @@ import MyMedicines from '../screens/MyMedicines';
 import Notes from '../screens/Notes';
 import {fonts} from '../constants/fonts';
 import {colors} from '../constants/colors';
-
+import {useEffect} from 'react';
+import {getSingleDoc} from '../services/firestoreService';
+import {collectionNames} from '../constants/collections';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useState} from 'react';
 function DrawerNavigator(props) {
   const Drawer = createDrawerNavigator();
 
@@ -48,6 +53,31 @@ function DrawerNavigator(props) {
 }
 
 const DrawerContent = ({navigation}, props) => {
+  const [selfData, setSelfData] = useState({});
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const userId = await AsyncStorage.getItem('userId');
+      const patient = await getSingleDoc(collectionNames.patients, userId);
+      console.log('in patient drawer', patient.message);
+      setSelfData(patient.message);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onLogout = async () => {
+    try {
+      await auth().signOut();
+      await AsyncStorage.removeItem('userId');
+      navigation.replace('LoginAs');
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <ScrollView style={styles.drawer}>
       <DrawerContentScrollView {...props}>
@@ -63,7 +93,7 @@ const DrawerContent = ({navigation}, props) => {
 
             <View style={styles.introtxtContainer}>
               <View>
-                <Text style={styles.introTitle}>Safeena Ahmed</Text>
+                <Text style={styles.introTitle}>{selfData.fullName}</Text>
                 <Text style={styles.introSubtitle}>Luxemberg</Text>
               </View>
             </View>
@@ -132,7 +162,7 @@ const DrawerContent = ({navigation}, props) => {
           }}>
           <TouchableOpacity
             style={[styles.itemParentContainer]}
-            onPress={() => navigation.replace('LoginAs')}>
+            onPress={onLogout}>
             <View style={styles.itemContainer}>
               <Image style={styles.img} resizeMode="contain" source={logout} />
               <Text style={styles.txt}>Logout</Text>

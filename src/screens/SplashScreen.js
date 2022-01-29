@@ -34,9 +34,9 @@ function SplashScreen({navigation}) {
         const doctor = await getSingleDoc(collectionNames.doctors, userId);
         const patient = await getSingleDoc(collectionNames.patients, userId);
         console.log('doctor --->', doctor);
-        if (doctor) {
+        if (doctor.message) {
           navigation.replace('DoctorNavigator');
-        } else if (patient) {
+        } else if (patient.message) {
           navigation.replace('AppNavigator');
         } else {
           navigation.replace('LoginAs');

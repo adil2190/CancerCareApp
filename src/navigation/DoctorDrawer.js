@@ -35,6 +35,10 @@ import DoctorDashboard from '../screens/DoctorDashboard';
 import DoctorAppointment from '../screens/DoctorAppointments';
 import CancerDetection from '../screens/CancerDetection';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useEffect} from 'react';
+import {getSingleDoc} from '../services/firestoreService';
+import {collectionNames} from '../constants/collections';
+import {useState} from 'react';
 
 function DoctorDrawer(props) {
   const Drawer = createDrawerNavigator();
@@ -53,6 +57,23 @@ function DoctorDrawer(props) {
 }
 
 const DrawerContent = ({navigation}, props) => {
+  const [selfData, setSelfData] = useState({});
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const userId = await AsyncStorage.getItem('userId');
+      const patient = await getSingleDoc(collectionNames.doctors, userId);
+      console.log('in patient drawer', patient.message);
+      setSelfData(patient.message);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const onLogout = async () => {
     try {
       await auth().signOut();
@@ -77,7 +98,7 @@ const DrawerContent = ({navigation}, props) => {
 
             <View style={styles.introtxtContainer}>
               <View>
-                <Text style={styles.introTitle}>Dr. Sameer</Text>
+                <Text style={styles.introTitle}>{selfData.fullName}</Text>
                 <Text style={styles.introSubtitle}>General Physician</Text>
               </View>
             </View>
