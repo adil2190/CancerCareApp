@@ -27,3 +27,26 @@ export const getSingleDoc = (collectionName, docId) => {
     }
   });
 };
+
+export const addInSubcollection = async (
+  collectionName,
+  docId,
+  childCollectionName,
+  body,
+) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      await firestore()
+        .collection(collectionName)
+        .doc(docId)
+        .collection(childCollectionName)
+        .add(body);
+      return resolve({
+        result: 'success',
+        message: 'document added successfully',
+      });
+    } catch (err) {
+      return reject({result: 'failed', message: err});
+    }
+  });
+};

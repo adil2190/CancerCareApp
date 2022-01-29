@@ -29,7 +29,7 @@ const MainModal = ({visible, onClose, data, onSubmit}) => {
           onPress={() => console.log('inner pressed')}
           style={styles.modalView}>
           {data.map(item => (
-            <TouchableOpacity onPress={onSubmit} key={item.id}>
+            <TouchableOpacity onPress={() => onSubmit(item.name)} key={item.id}>
               <Text style={styles.modalText}> {item.name} </Text>
             </TouchableOpacity>
           ))}
