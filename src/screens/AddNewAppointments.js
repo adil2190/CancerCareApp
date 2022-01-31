@@ -11,6 +11,8 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import DatePicker from 'react-native-date-picker';
+import moment from 'moment';
 
 import ActionHeader from '../components/ActionHeader';
 import {colors} from '../constants/colors';
@@ -24,29 +26,24 @@ import MainModal from '../components/MainModal';
 import {useState} from 'react';
 import PatientModal from '../components/PatientModal';
 
-const data = [
-  {id: 1, name: 'test'},
-  {id: 2, name: 'test'},
-  {id: 3, name: 'test'},
-  {id: 4, name: 'test'},
-  {id: 5, name: 'test'},
-  {id: 6, name: 'test'},
-  {id: 7, name: 'test'},
-  {id: 8, name: 'test'},
-  {id: 9, name: 'test'},
-  {id: 10, name: 'test'},
-  {id: 11, name: 'test'},
-  {id: 12, name: 'test'},
-  {id: 13, name: 'test'},
-  {id: 14, name: 'test'},
-  {id: 15, name: 'test'},
-  {id: 16, name: 'test'},
-  {id: 17, name: 'test'},
-];
-
 function AddNewAppointments({navigation}) {
   const [openModal, setOpenModal] = useState(false);
   const [patientData, setPatientData] = useState([]);
+  const [date, setDate] = useState(new Date());
+  const [openDate, setOpenDate] = useState(false);
+  const [startTime, setStartTime] = useState(new Date());
+  const [startTimeOpen, setStartTimeOpen] = useState(false);
+  const [endTime, setEndTime] = useState(new Date());
+  const [endTimeOpen, setEndTimeOpen] = useState(false);
+  const [data, setData] = useState({
+    patient: '',
+    title: '',
+    date: new Date(),
+    startTime: new Date(),
+    endTime: new Date(),
+    alert: '',
+    notes: '',
+  });
   useFocusEffect(
     useCallback(() => {
       getPatients();
@@ -64,7 +61,11 @@ function AddNewAppointments({navigation}) {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <ActionHeader onPress={() => navigation.goBack()} label={'Done'} />
+        <ActionHeader
+          onActionPressed={() => console.log(data)}
+          onPress={() => navigation.goBack()}
+          label={'Done'}
+        />
         <Text style={styles.txt}>New Appointments</Text>
         <Dropdown
           onPress={() => setOpenModal(true)}
@@ -76,14 +77,26 @@ function AddNewAppointments({navigation}) {
           placeholderTextColor={colors.LIGHTGRAY}
           fullWidth={true}
         />
-        <Dropdown label={'Date'} fullWidth={true} />
+        <Dropdown
+          onPress={() => setOpenDate(true)}
+          label={moment(data.date).format('Do MMM YYYY')}
+          fullWidth={true}
+        />
 
         <View style={{flexDirection: 'row'}}>
           <View style={styles.halfWidth}>
-            <Dropdown label={'Start Time'} fullWidth={true} />
+            <Dropdown
+              onPress={() => setStartTimeOpen(true)}
+              label={moment(data.startTime).format('hh:mm A')}
+              fullWidth={true}
+            />
           </View>
           <View style={styles.halfWidth}>
-            <Dropdown label={'End Time'} fullWidth={true} />
+            <Dropdown
+              onPress={() => setEndTimeOpen(true)}
+              label={moment(data.endTime).format('hh:mm A')}
+              fullWidth={true}
+            />
           </View>
         </View>
         <InputFieldMin
@@ -103,6 +116,50 @@ function AddNewAppointments({navigation}) {
           onSubmit={val => {
             console.log(val);
             setOpenModal(false);
+          }}
+        />
+      )}
+      {openDate && (
+        <DatePicker
+          modal
+          open={openDate}
+          date={date}
+          onConfirm={date => {
+            setOpenDate(false);
+            setData({...data, date: date});
+          }}
+          onCancel={() => {
+            setOpenDate(false);
+          }}
+        />
+      )}
+      {startTimeOpen && (
+        <DatePicker
+          modal
+          mode="time"
+          open={startTimeOpen}
+          date={startTime}
+          onConfirm={date => {
+            setStartTimeOpen(false);
+            setData({...data, startTime: date});
+          }}
+          onCancel={() => {
+            setStartTimeOpen(false);
+          }}
+        />
+      )}
+      {endTimeOpen && (
+        <DatePicker
+          modal
+          mode="time"
+          open={endTimeOpen}
+          date={endTime}
+          onConfirm={date => {
+            setEndTimeOpen(false);
+            setData({...data, endTime: date});
+          }}
+          onCancel={() => {
+            setEndTimeOpen(false);
           }}
         />
       )}
