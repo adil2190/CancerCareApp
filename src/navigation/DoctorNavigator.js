@@ -8,6 +8,7 @@ import DoctorAppointment from '../screens/DoctorAppointments';
 import CancerDetection from '../screens/CancerDetection';
 import AssignedMedicines from '../screens/AssignedMedicines';
 import AddMedicine from '../screens/AddMedicine';
+import AddNewAppointments from '../screens/AddNewAppointments';
 
 const Doctor = createStackNavigator();
 function DoctorNavigator(props) {
@@ -22,6 +23,7 @@ function DoctorNavigator(props) {
       <Doctor.Screen name="CancerDetection" component={CancerDetection} />
       <Doctor.Screen name="AssignedMedicines" component={AssignedMedicines} />
       <Doctor.Screen name="AddMedicine" component={AddMedicine} />
+      <Doctor.Screen name="AddNewAppointments" component={AddNewAppointments} />
     </Doctor.Navigator>
   );
 }

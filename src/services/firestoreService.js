@@ -28,6 +28,19 @@ export const getSingleDoc = (collectionName, docId) => {
   });
 };
 
+export const getCollection = collectionName => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await firestore().collection(collectionName).get();
+      return resolve({
+        result: 'success',
+        message: response.docs.map(item => item.data()),
+      });
+    } catch (err) {
+      return reject({result: 'failed', message: err});
+    }
+  });
+};
 export const addInSubcollection = async (
   collectionName,
   docId,

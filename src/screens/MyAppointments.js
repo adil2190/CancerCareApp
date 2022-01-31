@@ -72,11 +72,6 @@ function MyAppointments({navigation, route}) {
             })
           }
         />
-        <MyButton
-          onPress={() => navigation.push('AddNewAppointments')}
-          label="Add new appointment"
-          buttonStyle={{marginTop: 20}}
-        />
       </ScrollView>
     </View>
   );

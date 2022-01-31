@@ -16,7 +16,7 @@ import {
 import {colors} from '../constants/colors';
 import {fonts} from '../constants/fonts';
 
-const MainModal = ({visible, onClose, data, onSubmit}) => {
+const PatientModal = ({visible, onClose, data, onSubmit}) => {
   return (
     <Modal
       animationType="fade"
@@ -32,9 +32,12 @@ const MainModal = ({visible, onClose, data, onSubmit}) => {
           <ScrollView>
             {data.map(item => (
               <TouchableOpacity
-                onPress={() => onSubmit(item.name)}
-                key={item.id}>
-                <Text style={styles.modalText}> {item.name} </Text>
+                onPress={() => onSubmit(item)}
+                key={item.userId}>
+                <Text style={styles.modalText}>
+                  {' '}
+                  {`${item.fullName} (${item.code})`}{' '}
+                </Text>
               </TouchableOpacity>
             ))}
           </ScrollView>
@@ -76,4 +79,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MainModal;
+export default PatientModal;

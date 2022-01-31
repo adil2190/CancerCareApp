@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {
   View,
   StyleSheet,
@@ -16,16 +16,59 @@ import ActionHeader from '../components/ActionHeader';
 import {colors} from '../constants/colors';
 import {fonts} from '../constants/fonts';
 import InputFieldMin from '../components/InputFieldMin';
+import {getCollection} from '../services/firestoreService';
+import {collectionNames} from '../constants/collections';
+import {useFocusEffect} from '@react-navigation/native';
+import Dropdown from '../components/Dropdown';
+import MainModal from '../components/MainModal';
+import {useState} from 'react';
+import PatientModal from '../components/PatientModal';
+
+const data = [
+  {id: 1, name: 'test'},
+  {id: 2, name: 'test'},
+  {id: 3, name: 'test'},
+  {id: 4, name: 'test'},
+  {id: 5, name: 'test'},
+  {id: 6, name: 'test'},
+  {id: 7, name: 'test'},
+  {id: 8, name: 'test'},
+  {id: 9, name: 'test'},
+  {id: 10, name: 'test'},
+  {id: 11, name: 'test'},
+  {id: 12, name: 'test'},
+  {id: 13, name: 'test'},
+  {id: 14, name: 'test'},
+  {id: 15, name: 'test'},
+  {id: 16, name: 'test'},
+  {id: 17, name: 'test'},
+];
 
 function AddNewAppointments({navigation}) {
+  const [openModal, setOpenModal] = useState(false);
+  const [patientData, setPatientData] = useState([]);
+  useFocusEffect(
+    useCallback(() => {
+      getPatients();
+    }, []),
+  );
+  const getPatients = async () => {
+    try {
+      const response = await getCollection(collectionNames.patients);
+      console.log(response.message);
+      setPatientData(response.message);
+    } catch (err) {
+      return console.log(err);
+    }
+  };
   return (
     <ScrollView>
       <View style={styles.container}>
         <ActionHeader onPress={() => navigation.goBack()} label={'Done'} />
         <Text style={styles.txt}>New Appointments</Text>
-        <InputFieldMin
-          placeholder="Patient Id"
-          placeholderTextColor={colors.LIGHTGRAY}
+        <Dropdown
+          onPress={() => setOpenModal(true)}
+          label={'Patient'}
           fullWidth={true}
         />
         <InputFieldMin
@@ -33,25 +76,14 @@ function AddNewAppointments({navigation}) {
           placeholderTextColor={colors.LIGHTGRAY}
           fullWidth={true}
         />
-        <InputFieldMin
-          placeholder="Date"
-          placeholderTextColor={colors.LIGHTGRAY}
-          fullWidth={true}
-        />
+        <Dropdown label={'Date'} fullWidth={true} />
+
         <View style={{flexDirection: 'row'}}>
           <View style={styles.halfWidth}>
-            <InputFieldMin
-              placeholder="Start Time"
-              placeholderTextColor={colors.LIGHTGRAY}
-              fullWidth={true}
-            />
+            <Dropdown label={'Start Time'} fullWidth={true} />
           </View>
           <View style={styles.halfWidth}>
-            <InputFieldMin
-              placeholder="End Time"
-              placeholderTextColor={colors.LIGHTGRAY}
-              fullWidth={true}
-            />
+            <Dropdown label={'End Time'} fullWidth={true} />
           </View>
         </View>
         <InputFieldMin
@@ -62,6 +94,18 @@ function AddNewAppointments({navigation}) {
         <Text style={styles.smallTxt}> NOTES </Text>
         <InputFieldMin fullWidth={true} multiline={true} numberOfLines={8} />
       </View>
+
+      {openModal && (
+        <PatientModal
+          visible={openModal}
+          onClose={() => setOpenModal(false)}
+          data={patientData}
+          onSubmit={val => {
+            console.log(val);
+            setOpenModal(false);
+          }}
+        />
+      )}
     </ScrollView>
   );
 }
