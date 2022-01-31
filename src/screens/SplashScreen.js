@@ -9,6 +9,7 @@ import {
   ImageBackground,
   Image,
   StyleSheet,
+  Alert,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -29,11 +30,9 @@ function SplashScreen({navigation}) {
   const getData = async () => {
     try {
       const userId = await AsyncStorage.getItem('userId');
-      console.log(userId);
       if (userId) {
         const doctor = await getSingleDoc(collectionNames.doctors, userId);
         const patient = await getSingleDoc(collectionNames.patients, userId);
-        console.log('doctor --->', doctor);
         if (doctor.message) {
           navigation.replace('DoctorNavigator');
         } else if (patient.message) {
@@ -46,6 +45,7 @@ function SplashScreen({navigation}) {
       }
     } catch (err) {
       console.log(err);
+      Alert.alert('Error!', err.message);
     }
   };
   return (

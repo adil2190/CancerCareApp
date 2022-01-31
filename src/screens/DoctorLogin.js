@@ -33,13 +33,11 @@ function DoctorLogin({navigation}) {
       setLoader(true);
       try {
         const user = await signInUser(email, Password);
-        // console.log(user.message.user);
         const doctor = await getSingleDoc(
           collectionNames.doctors,
           user.message.user.uid,
         );
         if (doctor.message) {
-          console.log('in doctor', doctor.message.userId);
           setErrors('');
           await AsyncStorage.setItem('userId', doctor.message.userId);
           navigation.replace('DoctorNavigator');

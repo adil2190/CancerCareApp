@@ -39,11 +39,10 @@ function MyMedicines({navigation, route}) {
         userId,
         collectionNames.medicines,
       );
-      console.log(response.message);
       setData(response.message);
     } catch (err) {
       console.log(err);
-      Alert.alert('Error!', err);
+      Alert.alert('Error!', err.message);
     } finally {
       setLoader(false);
     }

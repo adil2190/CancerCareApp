@@ -33,13 +33,11 @@ function LoginScreen({navigation}) {
       setLoader(true);
       try {
         const user = await signInUser(email, Password);
-        console.log(user.message.user);
         const patient = await getSingleDoc(
           collectionNames.patients,
           user.message.user.uid,
         );
         if (patient.message) {
-          console.log('in patient', patient.message.userId);
           setErrors('');
           await AsyncStorage.setItem('userId', patient.message.userId);
           navigation.replace('AppNavigator');

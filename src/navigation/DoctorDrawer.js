@@ -39,6 +39,7 @@ import {useEffect} from 'react';
 import {getSingleDoc} from '../services/firestoreService';
 import {collectionNames} from '../constants/collections';
 import {useState} from 'react';
+import {Alert} from 'react-native';
 
 function DoctorDrawer(props) {
   const Drawer = createDrawerNavigator();
@@ -70,6 +71,7 @@ const DrawerContent = ({navigation}, props) => {
       setSelfData(patient.message);
     } catch (err) {
       console.log(err);
+      Alert.alert('Error!', err.message);
     }
   };
 
@@ -80,6 +82,7 @@ const DrawerContent = ({navigation}, props) => {
       navigation.replace('LoginAs');
     } catch (err) {
       console.log(err);
+      Alert.alert('Error!', err.message);
     }
   };
   return (

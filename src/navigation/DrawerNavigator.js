@@ -8,6 +8,7 @@ import {
   Button,
   Image,
   StyleSheet,
+  Alert,
 } from 'react-native';
 import {
   createDrawerNavigator,
@@ -65,6 +66,7 @@ const DrawerContent = ({navigation}, props) => {
       setSelfData(patient.message);
     } catch (err) {
       console.log(err);
+      Alert.alert('Error!', err.message);
     }
   };
 
@@ -75,6 +77,7 @@ const DrawerContent = ({navigation}, props) => {
       navigation.replace('LoginAs');
     } catch (err) {
       console.log(err);
+      Alert.alert('Error!', err.message);
     }
   };
   return (
