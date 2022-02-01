@@ -4,4 +4,5 @@ export const collectionNames = {
   stages: 'Stages',
   medicines: 'Medicines',
   notes: 'Notes',
+  appointments: 'Appointments',
 };

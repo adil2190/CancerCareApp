@@ -1,5 +1,6 @@
 import auth, {getAuth} from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import {collectionNames} from '../constants/collections';
 
 export const signInUser = (email, password) => {
   return new Promise(async (resolve, reject) => {
@@ -13,6 +14,19 @@ export const signInUser = (email, password) => {
   });
 };
 
+export const addSingleDoc = (collectionName, body) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      await firestore().collection(collectionName).add(body);
+      return resolve({
+        result: 'success',
+        message: 'document added successfully',
+      });
+    } catch (err) {
+      return reject({result: 'failed', message: err});
+    }
+  });
+};
 export const getSingleDoc = (collectionName, docId) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -41,6 +55,24 @@ export const getCollection = collectionName => {
     }
   });
 };
+
+export const getAppointments = id => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await firestore()
+        .collection(collectionNames.appointments)
+        .where('doctorId', '==', id)
+        .get();
+      return resolve({
+        result: 'success',
+        message: response.docs.map(item => item.data()),
+      });
+    } catch (err) {
+      return reject({result: 'failed', message: err});
+    }
+  });
+};
+
 export const addInSubcollection = async (
   collectionName,
   docId,
