@@ -20,3 +20,6 @@ export const patient = require('./patient.png');
 export const cancerdetection = require('./cancerdetection.png');
 export const deleteIcon = require('./delete.png');
 export const chatbot = require('./chatbot.png');
+export const chatbotSend = require('./chatbotSend.png');
+export const chatIcon = require('./chatIcon.png');
+export const minimize = require('./minimize.png');

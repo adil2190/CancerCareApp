@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useRef} from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   View,
@@ -7,10 +7,10 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {colors} from '../constants/colors';
 import DashboardHeader from '../components/DashboardHeader';
 import DashboardCard from '../components/DashboardCard';
+import ChatbotModal from '../components/ChatbotModal';
 import {
   myAppointments,
   myDiet,
@@ -22,10 +22,13 @@ import {
 
 function Dashboard({navigation}) {
   console.warn = () => {};
+  const [modalVisible, setModalVisible] = useState();
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.chatbotStyle}>
+      <TouchableOpacity
+        onPress={() => setModalVisible(true)}
+        style={styles.chatbotStyle}>
         <Image source={chatbot} style={styles.chatbotImg} />
       </TouchableOpacity>
 
@@ -51,6 +54,12 @@ function Dashboard({navigation}) {
           img={myNotes}
           label="Notes"
         />
+        {modalVisible && (
+          <ChatbotModal
+            visible={modalVisible}
+            onClose={() => setModalVisible(false)}
+          />
+        )}
       </ScrollView>
     </View>
   );
