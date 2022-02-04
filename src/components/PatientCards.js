@@ -1,27 +1,48 @@
-import React from 'react';
+import {useFocusEffect} from '@react-navigation/native';
+import React, {useCallback} from 'react';
+import {useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import {collectionNames} from '../constants/collections';
 import {colors} from '../constants/colors';
 import {fonts} from '../constants/fonts';
+import {getSubCollection} from '../services/firestoreService';
 
-function PatientCards(props) {
+function PatientCards({data}) {
+  const [medicines, setMedicines] = useState([]);
+  useFocusEffect(
+    useCallback(() => {
+      getData();
+    }, []),
+  );
+
+  const getData = async () => {
+    try {
+      const response = await getSubCollection(
+        collectionNames.patients,
+        data.userId,
+        collectionNames.medicines,
+      );
+      console.log(response.message);
+      setMedicines(response.message);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTxt}>Patient Name: Ali</Text>
+        <Text style={styles.headerTxt}>
+          {' '}
+          {data.fullName} ({data.code}){' '}
+        </Text>
       </View>
       <View style={styles.dataWrapper}>
-        <View style={styles.dataContainer}>
-          <Text style={styles.dataTxtLabel}>Panadol</Text>
-          <Text style={styles.dataTxtValue}>3 times a day</Text>
-        </View>
-        <View style={styles.dataContainer}>
-          <Text style={styles.dataTxtLabel}>Panadol</Text>
-          <Text style={styles.dataTxtValue}>3 times a day</Text>
-        </View>
-        <View style={styles.dataContainer}>
-          <Text style={styles.dataTxtLabel}>Panadol</Text>
-          <Text style={styles.dataTxtValue}>3 times a day</Text>
-        </View>
+        {medicines.map(item => (
+          <View style={styles.dataContainer}>
+            <Text style={styles.dataTxtLabel}>{item.medicineName}</Text>
+            <Text style={styles.dataTxtValue}>{item.frequency}</Text>
+          </View>
+        ))}
       </View>
     </View>
   );
