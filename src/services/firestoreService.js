@@ -73,6 +73,23 @@ export const getAppointments = id => {
   });
 };
 
+export const getPatientAppointments = id => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await firestore()
+        .collection(collectionNames.appointments)
+        .where('patientId', '==', id)
+        .get();
+      return resolve({
+        result: 'success',
+        message: response.docs.map(item => item.data()),
+      });
+    } catch (err) {
+      return reject({result: 'failed', message: err});
+    }
+  });
+};
+
 export const addInSubcollection = async (
   collectionName,
   docId,

@@ -29,6 +29,7 @@ function DoctorAppointment({navigation, route}) {
       getData();
     }, []),
   );
+
   const getData = async () => {
     try {
       setLoader(true);
@@ -65,14 +66,16 @@ function DoctorAppointment({navigation, route}) {
           contentContainerStyle={styles.cardContainer}
           showsVerticalScrollIndicator={false}>
           {data.map(item => (
-            <AppointmentCard
-              name={item.patientName}
-              day={moment(item.date).format('dddd')}
-              date={moment(item.date).format('Mo, MMM')}
-              time={`${moment(item.startTime).format('h:mm A')}-${moment(
-                item.endTime,
-              ).format('h:mm A')}`}
-            />
+            <>
+              <AppointmentCard
+                name={item.patientName}
+                day={moment(item.date).format('dddd')}
+                date={moment(item.date).format('Do, MMM')}
+                time={`${moment(item.startTime).format('h:mm A')}-${moment(
+                  item.endTime,
+                ).format('h:mm A')}`}
+              />
+            </>
           ))}
 
           <MyButton
