@@ -30,6 +30,7 @@ import Dashboard from '../screens/Dashboard';
 import MyAppointments from '../screens/MyAppointments';
 import MyMedicines from '../screens/MyMedicines';
 import Notes from '../screens/Notes';
+import Diet from '../screens/Diet';
 import {fonts} from '../constants/fonts';
 import {colors} from '../constants/colors';
 import {useEffect} from 'react';
@@ -49,6 +50,7 @@ function DrawerNavigator(props) {
       <Drawer.Screen name="MyAppointments" component={MyAppointments} />
       <Drawer.Screen name="Notes" component={Notes} />
       <Drawer.Screen name="MyMedicines" component={MyMedicines} />
+      <Drawer.Screen name="Diet" component={Diet} />
     </Drawer.Navigator>
   );
 }
@@ -134,7 +136,9 @@ const DrawerContent = ({navigation}, props) => {
               <Text style={styles.txt}>Medical Records</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.itemParentContainer}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Diet')}
+            style={styles.itemParentContainer}>
             <View style={styles.itemContainer}>
               <Image
                 style={styles.img}

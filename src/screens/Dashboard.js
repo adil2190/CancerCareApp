@@ -42,7 +42,11 @@ function Dashboard({navigation}) {
           img={myAppointments}
           label="Appointments"
         />
-        <DashboardCard img={myDiet} label="Diet" />
+        <DashboardCard
+          img={myDiet}
+          label="Diet"
+          onPress={() => navigation.push('Diet', {isBack: true})}
+        />
         <DashboardCard img={myExercise} label="Exercise" />
         <DashboardCard
           onPress={() => navigation.push('MyMedicines', {isBack: true})}

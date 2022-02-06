@@ -14,6 +14,7 @@ import AddNewAppointments from '../screens/AddNewAppointments';
 import MyMedicines from '../screens/MyMedicines';
 import AddMedicine from '../screens/AddMedicine';
 import AppointmentDetails from '../screens/AppointmentDetails';
+import Diet from '../screens/Diet';
 
 const Stack = createStackNavigator();
 const AppNavigator = () => {
@@ -35,6 +36,7 @@ const AppNavigator = () => {
       <Stack.Screen name="AddNewAppointments" component={AddNewAppointments} />
       <Stack.Screen name="AddMedicine" component={AddMedicine} />
       <Stack.Screen name="AppointmentDetails" component={AppointmentDetails} />
+      <Stack.Screen name="Diet" component={Diet} />
     </Stack.Navigator>
   );
 };
