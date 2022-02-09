@@ -10,16 +10,15 @@ function DietCard({title, data, onSelect, selected}) {
       {data && (
         <>
           {data.map(item => (
-            <TouchableOpacity onPress={() => onSelect(item.id)}>
+            <TouchableOpacity onPress={() => onSelect(item)}>
               <Text
-                key={item.id}
+                key={item}
                 style={
-                  selected == item.id
+                  selected == item
                     ? [styles.itemTxt, {color: colors.MAIN}]
                     : styles.itemTxt
                 }>
-                {' '}
-                {item.name}{' '}
+                {'\u2B24'} {item}{' '}
               </Text>
             </TouchableOpacity>
           ))}

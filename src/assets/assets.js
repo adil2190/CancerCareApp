@@ -24,3 +24,4 @@ export const chatbotSend = require('./chatbotSend.png');
 export const chatIcon = require('./chatIcon.png');
 export const minimize = require('./minimize.png');
 export const search1 = require('./search1.png');
+export const notification = require('./notification.png');

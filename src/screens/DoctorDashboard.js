@@ -10,6 +10,7 @@ import {
   myMedicine,
   myNotes,
   cancerdetection,
+  notification,
 } from '../assets/assets';
 
 function DoctorDashboard({navigation}) {
@@ -19,6 +20,8 @@ function DoctorDashboard({navigation}) {
       <DashboardHeader
         label="Dashboard"
         onPressed={() => navigation.openDrawer()}
+        icon={notification}
+        onActionPressed={() => navigation.push('PatientAlerts', {isBack: true})}
       />
       <ScrollView>
         <DashboardCard
