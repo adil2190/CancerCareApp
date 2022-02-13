@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Text, View, StyleSheet, ScrollView} from 'react-native';
+import firestore from '@react-native-firebase/firestore';
+
 import {colors} from '../constants/colors';
+import {collectionNames} from '../constants/collections';
 import DashboardHeader from '../components/DashboardHeader';
 import DashboardCard from '../components/DashboardCard';
 import {
@@ -14,7 +17,22 @@ import {
 } from '../assets/assets';
 
 function DoctorDashboard({navigation}) {
+  const [alertCount, setAlertCount] = React.useState(0);
   console.warn = () => {};
+  useEffect(() => {
+    const subscribe = firestore()
+      .collection(collectionNames.patientAlerts)
+      .onSnapshot(querySnapshot => {
+        let localData = [];
+        querySnapshot.forEach(doc => {
+          localData.push({...doc.data(), selfId: doc.id});
+        });
+        setAlertCount(localData.filter(item => item.isRead == false).length);
+      });
+
+    return () => subscribe();
+  }, []);
+
   return (
     <View style={styles.container}>
       <DashboardHeader
@@ -22,6 +40,7 @@ function DoctorDashboard({navigation}) {
         onPressed={() => navigation.openDrawer()}
         icon={notification}
         onActionPressed={() => navigation.push('PatientAlerts', {isBack: true})}
+        count={alertCount}
       />
       <ScrollView>
         <DashboardCard

@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {
   Text,
   ActivityIndicator,
@@ -7,6 +7,8 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
+import firestore from '@react-native-firebase/firestore';
+
 import BackHeader from '../components/BackHeader';
 import MyButton from '../components/MyButton';
 import NotesCard from '../components/NotesCard';
@@ -27,25 +29,19 @@ import PatientAlertCard from '../components/PatientAlertCard';
 function PatientAlerts({navigation, route}) {
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(false);
+  useEffect(() => {
+    const subscribe = firestore()
+      .collection(collectionNames.patientAlerts)
+      .onSnapshot(querySnapshot => {
+        let localData = [];
+        querySnapshot.forEach(doc => {
+          localData.push({...doc.data(), selfId: doc.id});
+        });
+        setData(localData);
+      });
 
-  useFocusEffect(
-    useCallback(() => {
-      getData();
-    }, []),
-  );
-  const getData = async () => {
-    try {
-      setLoader(true);
-      const userId = await AsyncStorage.getItem('userId');
-      const response = await getCollection(collectionNames.patientAlerts);
-      setData(response.message);
-    } catch (err) {
-      console.log(err);
-      Alert.alert('Error', err.message);
-    } finally {
-      setLoader(false);
-    }
-  };
+    return () => subscribe();
+  }, []);
 
   return (
     <View style={styles.container}>

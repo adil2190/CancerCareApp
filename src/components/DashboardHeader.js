@@ -7,7 +7,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-function DashboardHeader({label, onPressed, icon, onActionPressed}) {
+function DashboardHeader({label, onPressed, icon, count, onActionPressed}) {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={onPressed}>
@@ -21,7 +21,7 @@ function DashboardHeader({label, onPressed, icon, onActionPressed}) {
             style={{position: 'relative'}}>
             <Image source={icon} style={styles.img} />
             <View style={styles.notificationCount}>
-              <Text style={styles.notificationTxt}>11</Text>
+              <Text style={styles.notificationTxt}>{count}</Text>
             </View>
           </TouchableOpacity>
         )}
