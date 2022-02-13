@@ -14,7 +14,11 @@ import DashboardHeader from '../components/DashboardHeader';
 
 import {colors} from '../constants/colors';
 import {useFocusEffect} from '@react-navigation/native';
-import {getCollection, getSubCollection} from '../services/firestoreService';
+import {
+  getCollection,
+  getSubCollection,
+  updateDocument,
+} from '../services/firestoreService';
 import {collectionNames} from '../constants/collections';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useState} from 'react';
@@ -65,17 +69,19 @@ function PatientAlerts({navigation, route}) {
           {data.map(item => (
             <PatientAlertCard
               // onPress={() => navigation.push('NoteDetails', {data: item})}
+              onPress={async () => {
+                navigation.push('DietAlertDetails', {data: item});
+                await updateDocument(
+                  collectionNames.patientAlerts,
+                  item.selfId,
+                  {isRead: true},
+                );
+              }}
               note={item.patientName}
               message={item.message}
               isRead={item.isRead}
             />
           ))}
-
-          <MyButton
-            onPress={() => navigation.push('AddNote')}
-            label="Add new note"
-            buttonStyle={{marginTop: 20}}
-          />
         </ScrollView>
       )}
     </View>

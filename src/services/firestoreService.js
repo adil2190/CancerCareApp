@@ -48,7 +48,9 @@ export const getCollection = collectionName => {
       const response = await firestore().collection(collectionName).get();
       return resolve({
         result: 'success',
-        message: response.docs.map(item => item.data()),
+        message: response.docs.map(item => {
+          return {...item.data(), selfId: item.id};
+        }),
       });
     } catch (err) {
       return reject({result: 'failed', message: err});
@@ -128,6 +130,20 @@ export const getSubCollection = async (
       return resolve({
         result: 'success',
         message: response.docs.map(item => item.data()),
+      });
+    } catch (err) {
+      return reject({result: 'failed', message: err});
+    }
+  });
+};
+
+export const updateDocument = (collectionName, docName, body) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      await firestore().collection(collectionName).doc(docName).update(body);
+      return resolve({
+        result: 'success',
+        message: 'document updated successfully',
       });
     } catch (err) {
       return reject({result: 'failed', message: err});
