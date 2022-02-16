@@ -32,6 +32,7 @@ function PatientAlerts({navigation, route}) {
   useEffect(() => {
     const subscribe = firestore()
       .collection(collectionNames.patientAlerts)
+      .orderBy('createdAt', 'desc')
       .onSnapshot(querySnapshot => {
         let localData = [];
         querySnapshot.forEach(doc => {

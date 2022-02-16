@@ -28,6 +28,7 @@ import {
 import Dashboard from '../screens/Dashboard';
 import MyAppointments from '../screens/MyAppointments';
 import MyMedicines from '../screens/MyMedicines';
+import AssignedMedicines from '../screens/AssignedMedicines';
 import Notes from '../screens/Notes';
 import {fonts} from '../constants/fonts';
 import {colors} from '../constants/colors';
@@ -52,7 +53,7 @@ function DoctorDrawer(props) {
       <Drawer.Screen name="DoctorDashboard" component={DoctorDashboard} />
       <Drawer.Screen name="DoctorAppointment" component={DoctorAppointment} />
       <Drawer.Screen name="CancerDetection" component={CancerDetection} />
-      <Drawer.Screen name="MyMedicines" component={MyMedicines} />
+      <Drawer.Screen name="AssignedMedicines" component={AssignedMedicines} />
     </Drawer.Navigator>
   );
 }

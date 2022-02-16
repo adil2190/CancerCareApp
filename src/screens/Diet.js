@@ -73,15 +73,17 @@ function Diet({navigation, route}) {
   const dietData = {
     message: `Patient ${
       selfData.fullName
-    } submitted their diet on ${currentDay} at ${moment(new Date()).format(
-      'H:mm A',
-    )}`,
+    } submitted their diet on ${currentDay}, ${moment(new Date()).format(
+      'DD MMM, YYYY',
+    )} at ${moment(new Date()).format('H:mm A')}`,
     patientName: `${selfData.fullName} (${selfData.code})`,
     breakfast: breakfastSelected,
     lunch: lunchSelected,
     dinner: dinnerSelected,
     createdAt: Date.now(),
     isRead: false,
+    doctorId: selfData.doctorId,
+    type: 'diet',
   };
   const submitData = async () => {
     try {

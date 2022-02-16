@@ -16,14 +16,23 @@ import MyButton from '../components/MyButton';
 import {fonts} from '../constants/fonts';
 import DashboardHeader from '../components/DashboardHeader';
 import {useFocusEffect} from '@react-navigation/native';
-import {getSubCollection} from '../services/firestoreService';
+import {
+  getSubCollection,
+  getSingleDoc,
+  addSingleDoc,
+} from '../services/firestoreService';
 import {collectionNames} from '../constants/collections';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useState} from 'react';
+import moment from 'moment';
 
 function MyMedicines({navigation, route}) {
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(false);
+  const [selfData, setSelfData] = useState({});
+  const [submitLoader, setSubmitLoader] = useState(false);
+  const currentDay = moment(new Date()).format('dddd');
+
   useFocusEffect(
     useCallback(() => {
       getData();
@@ -39,12 +48,39 @@ function MyMedicines({navigation, route}) {
         userId,
         collectionNames.medicines,
       );
+      const self = await getSingleDoc(collectionNames.patients, userId);
+      setSelfData(self.message);
       setData(response.message);
     } catch (err) {
       console.log(err);
       Alert.alert('Error!', err.message);
     } finally {
       setLoader(false);
+    }
+  };
+
+  const alertData = {
+    type: 'medicine',
+    patientName: `${selfData.fullName} (${selfData.code})`,
+    doctorId: selfData.doctorId,
+    createdAt: Date.now(),
+    message: `Patient ${
+      selfData.fullName
+    } submitted their ${currentDay}'s medicines on ${moment(new Date()).format(
+      'DD MMM, YYYY',
+    )} at ${moment(new Date()).format('H:mm A')} `,
+  };
+
+  const submitData = async () => {
+    try {
+      setSubmitLoader(true);
+      await addSingleDoc(collectionNames.patientAlerts, alertData);
+      navigation.goBack();
+    } catch (err) {
+      console.log(err);
+      Alert.alert('Error!', err.message);
+    } finally {
+      setSubmitLoader(false);
     }
   };
   return (
@@ -75,6 +111,12 @@ function MyMedicines({navigation, route}) {
             onPress={() => navigation.push('AddMedicine')}
             label="Add new Medicine"
             buttonStyle={{marginTop: 20}}
+          />
+          <MyButton
+            onPress={submitData}
+            loading={submitLoader}
+            label="Submit to Notify"
+            buttonStyle={{marginTop: 10}}
           />
         </ScrollView>
       )}

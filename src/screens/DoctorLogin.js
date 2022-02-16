@@ -40,7 +40,9 @@ function DoctorLogin({navigation}) {
         if (doctor.message) {
           setErrors('');
           await AsyncStorage.setItem('userId', doctor.message.userId);
-          navigation.replace('DoctorNavigator');
+          navigation.replace('DoctorNavigator', {
+            userId: doctor.message.userId,
+          });
         } else {
           setErrors('User is not registered as doctor');
         }
