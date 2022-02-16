@@ -143,7 +143,7 @@ const DrawerContent = ({navigation}, props) => {
               <Text style={styles.txt}>AI Cancer Detection</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.itemParentContainer}>
+          {/* <TouchableOpacity style={styles.itemParentContainer}>
             <View style={styles.itemContainer}>
               <Image
                 style={styles.img}
@@ -152,7 +152,7 @@ const DrawerContent = ({navigation}, props) => {
               />
               <Text style={styles.txt}>Diet</Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <View
           style={{
