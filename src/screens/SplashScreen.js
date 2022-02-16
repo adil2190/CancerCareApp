@@ -21,7 +21,7 @@ import {getSingleDoc} from '../services/firestoreService';
 import {AuthContext} from '../context/AuthContext';
 
 function SplashScreen({navigation}) {
-  const {setDoctorData} = React.useContext(AuthContext);
+  const {setDoctorData, setPatientData} = React.useContext(AuthContext);
   useEffect(() => {
     getData();
     // setTimeout(() => {
@@ -39,6 +39,7 @@ function SplashScreen({navigation}) {
           setDoctorData(doctor.message);
           navigation.replace('DoctorNavigator');
         } else if (patient.message) {
+          setPatientData(patient.message);
           navigation.replace('AppNavigator');
         } else {
           navigation.replace('LoginAs');

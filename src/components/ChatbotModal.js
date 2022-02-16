@@ -20,12 +20,39 @@ import {colors} from '../constants/colors';
 import {fonts} from '../constants/fonts';
 import {chatIcon, minimize, chatbotSend} from '../assets/assets';
 import {useRef} from 'react';
-
+import {addInSubcollection} from '../services/firestoreService';
+import {collectionNames} from '../constants/collections';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useEffect} from 'react';
+import {AuthContext} from '../context/AuthContext';
 const ChatbotModal = ({visible, onClose, data, onSubmit}) => {
+  const {patientData} = React.useContext(AuthContext);
+  const [message, setMessage] = useState('');
   const scrollRef = useRef(null);
 
+  useEffect(() => {
+    console.log(patientData);
+  }, []);
   const onTextSend = () => {
-    console.log(scrollRef.current.scrollTo(0));
+    console.log(message);
+    addMyMessage();
+    scrollRef.current.scrollTo(0);
+  };
+
+  const addMyMessage = async () => {
+    try {
+      const userId = await AsyncStorage.getItem('userId');
+      const response = await addInSubcollection(
+        collectionNames.patients,
+        userId,
+        collectionNames.messages,
+        {id: 1, message},
+      );
+      setMessage('');
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <Modal
@@ -77,9 +104,11 @@ const ChatbotModal = ({visible, onClose, data, onSubmit}) => {
             <TextInput
               placeholder="Ask a Question"
               returnKeyType="send"
+              value={message}
+              onChangeText={val => setMessage(val)}
               placeholderTextColor={colors.LIGHTGRAY}
               style={styles.chatField}
-              onSubmitEditing={val => console.log('submission')}
+              onSubmitEditing={onTextSend}
             />
             <TouchableOpacity onPress={onTextSend}>
               <Image

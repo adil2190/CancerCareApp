@@ -7,4 +7,5 @@ export const collectionNames = {
   appointments: 'Appointments',
   diet: 'Diet',
   patientAlerts: 'PatientAlerts',
+  messages: 'Messages',
 };

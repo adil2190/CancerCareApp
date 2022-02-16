@@ -21,8 +21,9 @@ import {fonts} from '../constants/fonts';
 import {getSingleDoc, signInUser} from '../services/firestoreService';
 import {collectionNames} from '../constants/collections';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import {AuthContext} from '../context/AuthContext';
 function LoginScreen({navigation}) {
+  const {setPatientData} = React.useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [Password, setPassword] = useState('');
   const [errors, setErrors] = useState('');
@@ -40,6 +41,7 @@ function LoginScreen({navigation}) {
         if (patient.message) {
           setErrors('');
           await AsyncStorage.setItem('userId', patient.message.userId);
+          setPatientData(patient.message);
           navigation.replace('AppNavigator');
         } else {
           setErrors('User is not registered as patient');
