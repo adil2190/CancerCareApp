@@ -25,8 +25,10 @@ import {collectionNames} from '../constants/collections';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useState} from 'react';
 import PatientAlertCard from '../components/PatientAlertCard';
+import {AuthContext} from '../context/AuthContext';
 
 function PatientAlerts({navigation, route}) {
+  const {doctorData} = React.useContext(AuthContext);
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(false);
   useEffect(() => {
@@ -34,11 +36,12 @@ function PatientAlerts({navigation, route}) {
       .collection(collectionNames.patientAlerts)
       .orderBy('createdAt', 'desc')
       .onSnapshot(querySnapshot => {
+        console.log(querySnapshot);
         let localData = [];
         querySnapshot.forEach(doc => {
           localData.push({...doc.data(), selfId: doc.id});
         });
-        setData(localData);
+        setData(localData.filter(item => item.doctorId == doctorData.userId));
       });
 
     return () => subscribe();

@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {Text, View, StyleSheet, ScrollView} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 
+import {AuthContext} from '../context/AuthContext';
 import {colors} from '../constants/colors';
 import {collectionNames} from '../constants/collections';
 import DashboardHeader from '../components/DashboardHeader';
@@ -18,10 +19,13 @@ import {
 
 function DoctorDashboard({navigation}) {
   const [alertCount, setAlertCount] = React.useState(0);
+  const {doctorData} = React.useContext(AuthContext);
   console.warn = () => {};
   useEffect(() => {
+    console.log('from context ----------> ', doctorData);
     const subscribe = firestore()
       .collection(collectionNames.patientAlerts)
+      .where('doctorId', '==', doctorData.userId)
       .onSnapshot(querySnapshot => {
         let localData = [];
         querySnapshot.forEach(doc => {

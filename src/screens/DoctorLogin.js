@@ -22,8 +22,10 @@ import {useState} from 'react';
 import {getSingleDoc, signInUser} from '../services/firestoreService';
 import {collectionNames} from '../constants/collections';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {AuthContext} from '../context/AuthContext';
 
 function DoctorLogin({navigation}) {
+  const {setDoctorData} = React.useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [Password, setPassword] = useState('');
   const [errors, setErrors] = useState('');
@@ -39,6 +41,7 @@ function DoctorLogin({navigation}) {
         );
         if (doctor.message) {
           setErrors('');
+          setDoctorData(doctor.message);
           await AsyncStorage.setItem('userId', doctor.message.userId);
           navigation.replace('DoctorNavigator', {
             userId: doctor.message.userId,

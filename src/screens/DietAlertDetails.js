@@ -1,40 +1,85 @@
-import React from 'react';
-import {View, Text, StyleSheet, TextInput} from 'react-native';
+import React, {useCallback} from 'react';
+import {View, Text, StyleSheet, TextInput, ScrollView} from 'react-native';
 import {colors} from '../constants/colors';
 import ActionHeader from '../components/ActionHeader';
 import {fonts} from '../constants/fonts';
 import {deleteIcon} from '../assets/assets';
 import moment from 'moment';
+import {getSubCollection} from '../services/firestoreService';
+import {collectionNames} from '../constants/collections';
+import {useEffect} from 'react';
+import {useFocusEffect} from '@react-navigation/native';
+import {useState} from 'react';
+import MedicineCard from '../components/MedicineCard';
 
 function DietAlertDetails({navigation, route}) {
   const {data} = route.params;
+  const [medicines, setMedicines] = useState([]);
+  const getData = async () => {
+    try {
+      const response = await getSubCollection(
+        collectionNames.patients,
+        data.patientId,
+        collectionNames.medicines,
+      );
+      console.log(response.message);
+      setMedicines(response.message);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      if (data.type == 'medicine') {
+        getData();
+      }
+    }, []),
+  );
   return (
     <View style={styles.container}>
-      <ActionHeader onPress={() => navigation.goBack()} icon={deleteIcon} />
-      <View style={styles.innerContainer}>
-        <Text style={styles.headingTxt}>{data?.patientName}</Text>
+      <ActionHeader onPress={() => navigation.goBack()} />
+      {data.type == 'diet' ? (
+        <View style={styles.innerContainer}>
+          <Text style={styles.headingTxt}>{data?.patientName}</Text>
 
-        <View style={styles.txtContainer}>
-          <Text style={styles.lablTxt}> Breakfast </Text>
-          <Text style={styles.normalTxt}> {data?.breakfast} </Text>
-        </View>
-        <View style={styles.txtContainer}>
-          <Text style={styles.lablTxt}> Lunch </Text>
-          <Text style={styles.normalTxt}>{data?.lunch}</Text>
-        </View>
-        <View style={styles.txtContainer}>
-          <Text style={styles.lablTxt}> Dinner </Text>
-          <Text style={styles.normalTxt}> {data?.dinner} </Text>
-        </View>
+          <View style={styles.txtContainer}>
+            <Text style={styles.lablTxt}> Breakfast </Text>
+            <Text style={styles.normalTxt}> {data?.breakfast} </Text>
+          </View>
+          <View style={styles.txtContainer}>
+            <Text style={styles.lablTxt}> Lunch </Text>
+            <Text style={styles.normalTxt}>{data?.lunch}</Text>
+          </View>
+          <View style={styles.txtContainer}>
+            <Text style={styles.lablTxt}> Dinner </Text>
+            <Text style={styles.normalTxt}> {data?.dinner} </Text>
+          </View>
 
-        <View style={styles.txtContainer}>
-          <Text style={styles.lablTxt}> Date </Text>
-          <Text style={styles.normalTxt}>
-            {' '}
-            {moment(data.createdAt).format('Do, MMM')}{' '}
-          </Text>
+          <View style={styles.txtContainer}>
+            <Text style={styles.lablTxt}> Date </Text>
+            <Text style={styles.normalTxt}>
+              {' '}
+              {moment(data.createdAt).format('Do, MMM')}{' '}
+            </Text>
+          </View>
         </View>
-      </View>
+      ) : (
+        <View style={styles.innerContainer}>
+          <Text style={styles.headingTxt}>{data?.patientName}</Text>
+          <ScrollView
+            contentContainerStyle={styles.cardContainer}
+            showsVerticalScrollIndicator={false}>
+            {medicines.map(item => (
+              <MedicineCard
+                name={item.medicineName}
+                totalDuration={`${item.days} Days`}
+                duration={`${item.dose} ${item.units}, ${item.frequency}`}
+              />
+            ))}
+          </ScrollView>
+        </View>
+      )}
     </View>
   );
 }
@@ -46,6 +91,9 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     padding: 20,
+  },
+  cardContainer: {
+    alignItems: 'center',
   },
   input: {
     width: '90%',

@@ -61,9 +61,11 @@ function MyMedicines({navigation, route}) {
 
   const alertData = {
     type: 'medicine',
+    isRead: false,
     patientName: `${selfData.fullName} (${selfData.code})`,
     doctorId: selfData.doctorId,
     createdAt: Date.now(),
+    patientId: selfData.userId,
     message: `Patient ${
       selfData.fullName
     } submitted their ${currentDay}'s medicines on ${moment(new Date()).format(

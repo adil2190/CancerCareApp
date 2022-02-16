@@ -18,8 +18,10 @@ import {
 import {logo} from '../assets/assets';
 import {collectionNames} from '../constants/collections';
 import {getSingleDoc} from '../services/firestoreService';
+import {AuthContext} from '../context/AuthContext';
 
 function SplashScreen({navigation}) {
+  const {setDoctorData} = React.useContext(AuthContext);
   useEffect(() => {
     getData();
     // setTimeout(() => {
@@ -34,6 +36,7 @@ function SplashScreen({navigation}) {
         const doctor = await getSingleDoc(collectionNames.doctors, userId);
         const patient = await getSingleDoc(collectionNames.patients, userId);
         if (doctor.message) {
+          setDoctorData(doctor.message);
           navigation.replace('DoctorNavigator');
         } else if (patient.message) {
           navigation.replace('AppNavigator');
