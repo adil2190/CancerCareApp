@@ -102,7 +102,7 @@ const DrawerContent = ({navigation}, props) => {
             <View style={styles.introtxtContainer}>
               <View>
                 <Text style={styles.introTitle}>{selfData.fullName}</Text>
-                <Text style={styles.introSubtitle}>General Physician</Text>
+                <Text style={styles.introSubtitle}>{selfData.type}</Text>
               </View>
             </View>
           </View>

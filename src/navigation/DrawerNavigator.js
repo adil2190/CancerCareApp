@@ -31,6 +31,7 @@ import MyAppointments from '../screens/MyAppointments';
 import MyMedicines from '../screens/MyMedicines';
 import Notes from '../screens/Notes';
 import Diet from '../screens/Diet';
+import Exercises from '../screens/Exercises';
 import {fonts} from '../constants/fonts';
 import {colors} from '../constants/colors';
 import {useEffect} from 'react';
@@ -51,6 +52,7 @@ function DrawerNavigator(props) {
       <Drawer.Screen name="Notes" component={Notes} />
       <Drawer.Screen name="MyMedicines" component={MyMedicines} />
       <Drawer.Screen name="Diet" component={Diet} />
+      <Drawer.Screen name="Exercises" component={Exercises} />
     </Drawer.Navigator>
   );
 }
@@ -98,7 +100,7 @@ const DrawerContent = ({navigation}, props) => {
             <View style={styles.introtxtContainer}>
               <View>
                 <Text style={styles.introTitle}>{selfData.fullName}</Text>
-                <Text style={styles.introSubtitle}>Luxemberg</Text>
+                <Text style={styles.introSubtitle}>{selfData.city}</Text>
               </View>
             </View>
           </View>
@@ -126,14 +128,16 @@ const DrawerContent = ({navigation}, props) => {
               <Text style={styles.txt}>My Appointments</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.itemParentContainer}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Exercises')}
+            style={styles.itemParentContainer}>
             <View style={styles.itemContainer}>
               <Image
                 style={styles.img}
                 resizeMode="contain"
                 source={drawerMedical}
               />
-              <Text style={styles.txt}>Medical Records</Text>
+              <Text style={styles.txt}>Exercises</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity

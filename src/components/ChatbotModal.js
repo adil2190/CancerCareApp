@@ -16,6 +16,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import firestore from '@react-native-firebase/firestore';
 import {colors} from '../constants/colors';
 import {fonts} from '../constants/fonts';
 import {chatIcon, minimize, chatbotSend} from '../assets/assets';
@@ -25,18 +26,43 @@ import {collectionNames} from '../constants/collections';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect} from 'react';
 import {AuthContext} from '../context/AuthContext';
+import {chatBotMessage} from '../services/chatbotService';
 const ChatbotModal = ({visible, onClose, data, onSubmit}) => {
   const {patientData} = React.useContext(AuthContext);
   const [message, setMessage] = useState('');
+  const [chatData, setChatData] = useState([]);
   const scrollRef = useRef(null);
 
   useEffect(() => {
     console.log(patientData);
+    const subscribe = firestore()
+      .collection(collectionNames.patients)
+      .doc(patientData.userId)
+      .collection(collectionNames.messages)
+      .orderBy('date', 'desc')
+      .onSnapshot(querySnapshot => {
+        let localData = [];
+        querySnapshot.forEach(doc => {
+          localData.push({...doc.data()});
+        });
+        console.log('snapshot -->', localData);
+        setChatData(localData);
+      });
+
+    return () => subscribe();
   }, []);
-  const onTextSend = () => {
-    console.log(message);
-    addMyMessage();
-    scrollRef.current.scrollTo(0);
+
+  const onTextSend = async () => {
+    try {
+      console.log(message);
+      await addMyMessage();
+      const response = await chatBotMessage(message);
+      console.log('chatbot response --------->', response);
+      await addChatbotMessage(response.message?.top?.res);
+      // scrollRef.current.scrollTo(0);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const addMyMessage = async () => {
@@ -46,7 +72,7 @@ const ChatbotModal = ({visible, onClose, data, onSubmit}) => {
         collectionNames.patients,
         userId,
         collectionNames.messages,
-        {id: 1, message},
+        {id: 1, message, date: Date.now()},
       );
       setMessage('');
       console.log(response);
@@ -54,6 +80,24 @@ const ChatbotModal = ({visible, onClose, data, onSubmit}) => {
       console.log(err);
     }
   };
+
+  const addChatbotMessage = async msg => {
+    try {
+      const response = await addInSubcollection(
+        collectionNames.patients,
+        patientData.userId,
+        collectionNames.messages,
+        {
+          id: 2,
+          message: msg,
+          date: Date.now(),
+        },
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Modal
       animationType="slide"
@@ -97,8 +141,14 @@ const ChatbotModal = ({visible, onClose, data, onSubmit}) => {
               padding: 5,
               flexDirection: 'column-reverse',
             }}>
-            <Text style={styles.selfMessage}>Hello me chatbot</Text>
-            <Text style={styles.chatbotMessage}>Hello me chatbot</Text>
+            {chatData.map(item => (
+              <Text
+                style={
+                  item.id == 1 ? styles.selfMessage : styles.chatbotMessage
+                }>
+                {item.message}
+              </Text>
+            ))}
           </ScrollView>
           <View style={styles.chatInput}>
             <TextInput
