@@ -7,6 +7,8 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import firestore from '@react-native-firebase/firestore';
+import {AuthContext} from '../context/AuthContext';
 import {colors} from '../constants/colors';
 import DashboardHeader from '../components/DashboardHeader';
 import DashboardCard from '../components/DashboardCard';
@@ -18,11 +20,30 @@ import {
   myMedicine,
   myNotes,
   chatbot,
+  notification,
 } from '../assets/assets';
 
 function Dashboard({navigation}) {
   console.warn = () => {};
   const [modalVisible, setModalVisible] = useState();
+  const [alertCount, setAlertCount] = React.useState(0);
+  const {patientData} = React.useContext(AuthContext);
+
+  React.useEffect(() => {
+    console.log('from context ----------> ', patientData);
+    const subscribe = firestore()
+      .collection('DoctorAlerts')
+      .where('patientId', '==', patientData.userId)
+      .onSnapshot(querySnapshot => {
+        let localData = [];
+        querySnapshot.forEach(doc => {
+          localData.push({...doc.data(), selfId: doc.id});
+        });
+        setAlertCount(localData.filter(item => item.isRead == false).length);
+      });
+
+    return () => subscribe();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -35,6 +56,9 @@ function Dashboard({navigation}) {
       <DashboardHeader
         label="Dashboard"
         onPressed={() => navigation.openDrawer()}
+        onActionPressed={() => navigation.push('DoctorAlerts', {isBack: true})}
+        icon={notification}
+        count={alertCount}
       />
       <ScrollView>
         <DashboardCard

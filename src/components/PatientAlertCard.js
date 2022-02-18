@@ -22,10 +22,12 @@ function PatientAlertCard({note, message, isRead, ...props}) {
         style={
           isRead ? styles.main : [styles.main, {backgroundColor: colors.MAIN}]
         }>
-        <Text
-          style={isRead ? styles.name : [styles.name, {color: colors.WHITE}]}>
-          {note}{' '}
-        </Text>
+        {note && (
+          <Text
+            style={isRead ? styles.name : [styles.name, {color: colors.WHITE}]}>
+            {note}{' '}
+          </Text>
+        )}
         <Text
           style={isRead ? styles.date : [styles.date, {color: colors.WHITE}]}>
           {message.trim()}{' '}

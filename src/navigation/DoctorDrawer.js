@@ -35,6 +35,7 @@ import {colors} from '../constants/colors';
 import DoctorDashboard from '../screens/DoctorDashboard';
 import DoctorAppointment from '../screens/DoctorAppointments';
 import CancerDetection from '../screens/CancerDetection';
+import MyPatients from '../screens/MyPatients';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect} from 'react';
 import {getSingleDoc} from '../services/firestoreService';
@@ -54,6 +55,7 @@ function DoctorDrawer(props) {
       <Drawer.Screen name="DoctorAppointment" component={DoctorAppointment} />
       <Drawer.Screen name="CancerDetection" component={CancerDetection} />
       <Drawer.Screen name="AssignedMedicines" component={AssignedMedicines} />
+      <Drawer.Screen name="MyPatients" component={MyPatients} />
     </Drawer.Navigator>
   );
 }
@@ -143,16 +145,18 @@ const DrawerContent = ({navigation}, props) => {
               <Text style={styles.txt}>AI Cancer Detection</Text>
             </View>
           </TouchableOpacity>
-          {/* <TouchableOpacity style={styles.itemParentContainer}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('MyPatients')}
+            style={styles.itemParentContainer}>
             <View style={styles.itemContainer}>
               <Image
                 style={styles.img}
                 resizeMode="contain"
                 source={drawerDiet}
               />
-              <Text style={styles.txt}>Diet</Text>
+              <Text style={styles.txt}>My Patients</Text>
             </View>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </View>
         <View
           style={{

@@ -16,6 +16,7 @@ import AddMedicine from '../screens/AddMedicine';
 import AppointmentDetails from '../screens/AppointmentDetails';
 import Diet from '../screens/Diet';
 import Exercises from '../screens/Exercises';
+import DoctorAlerts from '../screens/DoctorAlerts';
 
 const Stack = createStackNavigator();
 const AppNavigator = () => {
@@ -39,6 +40,7 @@ const AppNavigator = () => {
       <Stack.Screen name="AppointmentDetails" component={AppointmentDetails} />
       <Stack.Screen name="Diet" component={Diet} />
       <Stack.Screen name="Exercises" component={Exercises} />
+      <Stack.Screen name="DoctorAlerts" component={DoctorAlerts} />
     </Stack.Navigator>
   );
 };

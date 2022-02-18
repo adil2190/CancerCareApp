@@ -16,6 +16,7 @@ export const signInUser = (email, password) => {
 
 export const addSingleDoc = (collectionName, body) => {
   return new Promise(async (resolve, reject) => {
+    console.log(body);
     try {
       await firestore().collection(collectionName).add(body);
       return resolve({

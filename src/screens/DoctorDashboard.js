@@ -64,7 +64,12 @@ function DoctorDashboard({navigation}) {
           label="AI Cancer Detection"
           onPress={() => navigation.push('CancerDetection', {isBack: true})}
         />
-        {/* <DashboardCard img={myDiet} label="Diet" /> */}
+        <DashboardCard
+          imgStyles={{height: 90, width: 105, margin: 10, marginLeft: 20}}
+          img={myAppointments}
+          label="My Patients"
+          onPress={() => navigation.push('MyPatients', {isBack: true})}
+        />
       </ScrollView>
     </View>
   );
