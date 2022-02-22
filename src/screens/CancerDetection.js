@@ -16,8 +16,10 @@ import MyButton from '../components/MyButton';
 import {fonts} from '../constants/fonts';
 import DashboardHeader from '../components/DashboardHeader';
 import {doctor, patient, logo} from '../assets/assets';
+import MyWebView from '../components/MyWebView';
+import WebView from 'react-native-webview';
 
-function CancerDetection({navigation, route}) {
+function CancerDetection({navigation, route, ...props}) {
   return (
     <View style={styles.container}>
       {route.params?.isBack ? (
@@ -32,31 +34,11 @@ function CancerDetection({navigation, route}) {
         />
       )}
 
-      <ScrollView
-        contentContainerStyle={styles.cardContainer}
-        showsVerticalScrollIndicator={false}>
-        <View style={{flex: 1, alignItems: 'center'}}>
-          <View style={styles.imgContainer}>
-            {/* <Image source={doctor} style={styles.img} /> */}
-            <View style={styles.round}></View>
-            <MyButton
-              label={'Upload File'}
-              buttonStyle={{marginTop: 10, paddingVertical: 8}}
-              // onPress={() => navigation.navigate('DoctorNavigator')}
-            />
-          </View>
-          <View style={styles.imgContainer}>
-            <View style={styles.round}></View>
-
-            {/* <Image source={patient} style={styles.img} /> */}
-            <MyButton
-              label={'Take a Picture'}
-              buttonStyle={{marginTop: 10, paddingVertical: 8}}
-              // onPress={() => navigation.navigate('AppNavigator')}
-            />
-          </View>
-        </View>
-      </ScrollView>
+      <WebView
+        {...props}
+        originWhitelist={['*']}
+        source={{uri: 'http://192.168.43.213:5000/'}}
+      />
     </View>
   );
 }
@@ -89,3 +71,33 @@ const styles = StyleSheet.create({
 });
 
 export default CancerDetection;
+
+{
+  /* <ScrollView
+contentContainerStyle={styles.cardContainer}
+showsVerticalScrollIndicator={false}>
+<View style={{flex: 1, alignItems: 'center'}}>
+  
+  {/* <View style={styles.imgContainer}>
+    <View style={styles.round}></View>
+    <MyButton
+      label={'Upload File'}
+      buttonStyle={{marginTop: 10, paddingVertical: 8}}
+      // onPress={() => navigation.navigate('DoctorNavigator')}
+    />
+  </View>
+  <View style={styles.imgContainer}>
+    <View style={styles.round}></View>
+
+    <MyButton
+      label={'Take a Picture'}
+      buttonStyle={{marginTop: 10, paddingVertical: 8}}
+      // onPress={() => navigation.navigate('AppNavigator')}
+    />
+  </View> */
+}
+{
+  /* <MyWebView /> */
+}
+// </View>
+// </ScrollView> */}

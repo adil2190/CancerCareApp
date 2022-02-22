@@ -42,7 +42,6 @@ function AddNewAppointments({navigation}) {
     date: new Date(),
     startTime: new Date(),
     endTime: new Date(),
-    alert: '',
     notes: '',
   });
   useFocusEffect(
@@ -66,9 +65,7 @@ function AddNewAppointments({navigation}) {
     data.title &&
     data.date &&
     data.startTime &&
-    data.endTime &&
-    data.alert &&
-    data.notes;
+    data.endTime;
 
   const submitData = async () => {
     const userId = await AsyncStorage.getItem('userId');
@@ -141,13 +138,7 @@ function AddNewAppointments({navigation}) {
             />
           </View>
         </View>
-        <InputFieldMin
-          value={data.alert}
-          onChangeText={val => setData({...data, alert: val})}
-          placeholder="Alert"
-          placeholderTextColor={colors.LIGHTGRAY}
-          fullWidth={true}
-        />
+
         <Text style={styles.smallTxt}> NOTES </Text>
         <InputFieldMin
           value={data.notes}

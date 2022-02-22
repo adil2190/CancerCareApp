@@ -72,7 +72,7 @@ const ChatbotModal = ({visible, onClose, data, onSubmit}) => {
         collectionNames.patients,
         userId,
         collectionNames.messages,
-        {id: 1, message, date: Date.now()},
+        {id: '1', message, date: Date.now().toString()},
       );
       setMessage('');
       console.log(response);
@@ -88,11 +88,13 @@ const ChatbotModal = ({visible, onClose, data, onSubmit}) => {
         patientData.userId,
         collectionNames.messages,
         {
-          id: 2,
+          id: '2',
           message: msg,
-          date: Date.now(),
+          date: Date.now().toString(),
         },
       );
+
+      console.log(response);
     } catch (err) {
       console.log(err);
     }

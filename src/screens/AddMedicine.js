@@ -59,13 +59,7 @@ function AddMedicine({navigation}) {
   });
 
   const isValid =
-    data.medicineName &&
-    data.purpose &&
-    data.dose &&
-    data.units &&
-    data.frequency &&
-    data.days &&
-    data.notes;
+    data.medicineName && data.dose && data.units && data.frequency && data.days;
   const assignMedicine = async () => {
     if (isValid) {
       try {

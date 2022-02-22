@@ -81,12 +81,10 @@ function AddMedicineDoctor({navigation}) {
 
   const isValid =
     data.medicineName &&
-    data.purpose &&
     data.dose &&
     data.units &&
     data.frequency &&
     data.days &&
-    data.notes &&
     data.patientId &&
     data.patientName;
   const assignMedicine = async () => {
