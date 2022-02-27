@@ -28,6 +28,7 @@ export const addSingleDoc = (collectionName, body) => {
     }
   });
 };
+
 export const getSingleDoc = (collectionName, docId) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -36,6 +37,23 @@ export const getSingleDoc = (collectionName, docId) => {
         .doc(docId)
         .get();
       return resolve({result: 'success', message: docRef.data()});
+    } catch (err) {
+      //   console.log(err);
+      return reject({result: 'failed', message: err});
+    }
+  });
+};
+export const deleteSingleDoc = (collectionName, docId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const docRef = await firestore()
+        .collection(collectionName)
+        .doc(docId)
+        .delete();
+      return resolve({
+        result: 'success',
+        message: 'document deleted Successfully.',
+      });
     } catch (err) {
       //   console.log(err);
       return reject({result: 'failed', message: err});

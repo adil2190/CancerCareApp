@@ -36,7 +36,7 @@ function PatientAlerts({navigation, route}) {
       .collection(collectionNames.patientAlerts)
       .orderBy('createdAt', 'desc')
       .onSnapshot(querySnapshot => {
-        console.log(querySnapshot);
+        // console.log(querySnapshot);
         let localData = [];
         querySnapshot.forEach(doc => {
           localData.push({...doc.data(), selfId: doc.id});
@@ -70,7 +70,11 @@ function PatientAlerts({navigation, route}) {
             <PatientAlertCard
               // onPress={() => navigation.push('NoteDetails', {data: item})}
               onPress={async () => {
-                navigation.push('DietAlertDetails', {data: item});
+                if (item.type == 'diet') {
+                  navigation.push('DietAlertDetails', {data: item});
+                } else if (item.type == 'appointment') {
+                  navigation.push('AppointmentRequest', {data: item});
+                }
                 await updateDocument(
                   collectionNames.patientAlerts,
                   item.selfId,

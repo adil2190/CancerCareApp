@@ -12,6 +12,7 @@ import AddNewAppointments from '../screens/AddNewAppointments';
 import PatientAlerts from '../screens/PatientAlerts';
 import DietAlertDetails from '../screens/DietAlertDetails';
 import MyPatients from '../screens/MyPatients';
+import AppointmentRequest from '../screens/AppointmentRequest';
 
 const Doctor = createStackNavigator();
 function DoctorNavigator(props) {
@@ -30,6 +31,7 @@ function DoctorNavigator(props) {
       <Doctor.Screen name="PatientAlerts" component={PatientAlerts} />
       <Doctor.Screen name="DietAlertDetails" component={DietAlertDetails} />
       <Doctor.Screen name="MyPatients" component={MyPatients} />
+      <Doctor.Screen name="AppointmentRequest" component={AppointmentRequest} />
     </Doctor.Navigator>
   );
 }

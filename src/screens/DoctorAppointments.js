@@ -78,11 +78,11 @@ function DoctorAppointment({navigation, route}) {
             </>
           ))}
 
-          <MyButton
+          {/* <MyButton
             onPress={() => navigation.push('AddNewAppointments')}
             label="Add new appointment"
             buttonStyle={{marginTop: 20}}
-          />
+          /> */}
         </ScrollView>
       )}
     </View>
